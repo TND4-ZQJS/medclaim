@@ -50,6 +50,17 @@
   }
 }
 
+ .grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+@media (max-width: 600px) {
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
   #scrollTopBtn {
   position: fixed;
   bottom: 24px;
@@ -172,10 +183,13 @@
 
   <!-- SECTION: Policy Info -->
   <section class="section">
-    <h2>Policy Information</h2>
+    <h2>Particulars of Policy</h2>
 
-  <div class="grid-2">
+  <div class="grid-4">
 
+      <label style="flex:1">Insured's IC No.
+        <input id="Complx_Insured_NIRC" class="persist" type="text" placeholder="e.g. 900101-14-1234">
+      </label>
       <label style="flex:1">Insured's IC No.
         <input id="Complx_Insured_NIRC" class="persist" type="text" placeholder="e.g. 900101-14-1234">
       </label>

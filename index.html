@@ -79,6 +79,53 @@
 }
 
 
+/* --- New CSS for In-Row Date Layout --- */
+
+/* 1. Use Flexbox on the parent to align items horizontally */
+.date-group {
+    display: flex;
+    align-items: center; /* Vertically centers items */
+    gap: 12px; /* Standard spacing between main elements */
+    flex-wrap: nowrap; /* Prevent wrapping to a new line on smaller screens */
+}
+
+/* 2. Style the main label text to be concise */
+.date-group .date-label {
+    /* flex:1 was on the old label, adjust for new structure */
+    flex-shrink: 0; /* Keep the label from shrinking too much */
+    width: auto;
+    font-weight: bold;
+    margin: 0; /* Clear previous label margins */
+}
+
+/* 3. Use Flexbox for the three input fields */
+.date-group .date-inputs {
+    display: flex;
+    flex-grow: 1; /* Allows this group to take up the remaining space */
+    gap: 8px; /* Small spacing between DD, MM, YYYY boxes */
+}
+
+/* 4. Ensure date inputs share space equally */
+.date-group .date-inputs input {
+    width: 30%; /* Approximate width */
+    text-align: center;
+    flex-grow: 1; /* Allow each date part to grow equally */
+    flex-basis: 0; /* Basis for even growth */
+}
+
+/* 5. Adjust for mobile view (optional, but recommended) */
+@media (max-width: 600px) {
+  .date-group {
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+  }
+  /* On mobile, stack the label and then put the inputs below */
+  .date-group .date-label {
+      width: 100%; 
+      margin-bottom: 5px;
+  }
+}
+
+
   /* Signature preview tiles */
   .sig-preview{
     width:100%; height:150px; border:1px dashed #bbb; border-radius:10px;
@@ -118,7 +165,7 @@
 </head>
 <body>
 <main>
-  <h1>Request For Change of Policy Condition (LF5189)</h1>
+  <h1>Medical & Accident Claim - Claimant's Statement (LF5191)</h1>
 
   <!-- SECTION: Policy Info -->
   <section class="section">
@@ -177,6 +224,19 @@
     <h2>A. Review Occupation Rating/Change of Occupation</h2>
     <small class="muted">Important note: Please provide a copy of New Employment Letter</small>
 
+   <div class="row date-group"> 
+  <label style="flex:1" class="date-label">Since
+    <span class="muted">(DD/MM/YYYY)</span>
+  </label>
+  
+  <div class="date-inputs">
+    <input id="UpdateOccupation_Day" class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input id="UpdateOccupation_Month" class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input id="UpdateOccupation_Year" class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
+  </div>
+</div>
+
+    
     <div class="row">
       <label style="flex:1">New Occupation
         <input id="Complx_Occupation_New" class="persist" type="text" placeholder="Enter occupation">
@@ -656,6 +716,43 @@ document.addEventListener("DOMContentLoaded", () => {
       updateState(); // initialize state on load
     }
   });
+});
+
+
+window.addEventListener("DOMContentLoaded", () => {
+
+    /* --- UNIVERSAL AUTO-TAB DATE LOGIC --- */
+    
+    // 1. Get ALL elements that have the 'date-input' class
+    const dateInputs = document.querySelectorAll('.date-input');
+
+    // 2. Iterate through them and add the event listener
+    dateInputs.forEach((currentInput, index) => {
+        const maxLength = parseInt(currentInput.getAttribute('maxlength'), 10);
+        
+        // This input should only handle auto-tabbing if it has a max length
+        if (maxLength > 0) {
+            currentInput.addEventListener('input', (e) => {
+                // Sanitize input to numeric only
+                e.target.value = e.target.value.replace(/[^0-9]/g, '');
+
+                // Check if the input is full AND there is a next element
+                if (e.target.value.length === maxLength) {
+                    const nextInput = dateInputs[index + 1];
+
+                    // Check if the next element is part of the sequence
+                    if (nextInput) {
+                        nextInput.focus();
+                        nextInput.select(); 
+                    }
+                }
+            });
+        }
+    });
+
+    /* --- END: Universal Auto-Tab Date Logic --- */
+    
+    // ... [The rest of your existing code] ...
 });
 
 // ---------- EXPORT FILTER LOGIC ----------

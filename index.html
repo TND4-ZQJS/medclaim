@@ -117,10 +117,11 @@
 
 /* 4. Ensure date inputs share space equally */
 .date-group .date-inputs input {
-    width: 15%; /* Approximate width */
-    text-align: center;
+    /* width: 15%; */ /* Approximate width */
+    /* text-align: center;
     flex-grow: 1; /* Allow each date part to grow equally */
-    flex-basis: 0; /* Basis for even growth */
+    /*flex-basis: 0; /*Basis for even growth */
+  width: 2.5em;
 }
 
 /* 5. Adjust for mobile view (optional, but recommended) */
@@ -314,6 +315,10 @@
     </div>
     
     <section class="section" id="Policyownerinfo">
+        <div class="row">
+      <label style="flex:1">Name<input id="Complx_ReduceFA_Basic_Amt" class="persist" type="text" placeholder="Enter name">
+      </label>
+     </div>
     <div class="row">
       <label style="flex:1">NIRC/Passport No.<input id="Complx_ReduceFA_Basic_Amt" class="persist" type="text" placeholder="Enter number">
       </label>

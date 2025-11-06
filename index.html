@@ -119,14 +119,17 @@
 
 /* Compact input fields */
 .date-group .date-inputs input {
-  width: 2.8em;
+  width: 3.2em;
   text-align: center;
-  padding: 4px 0;
-  font-size: 13px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 9px 0; /* match global input height */
+  border: 1px solid #ddd;
+  border-radius: 10px; /* same as main form inputs */
   background: #fff;
+  font-size: 1rem; /* consistent text size */
+  line-height: 1.2;
+  box-sizing: border-box;
 }
+
 
 /* For mobile screens */
 @media (max-width: 600px) {

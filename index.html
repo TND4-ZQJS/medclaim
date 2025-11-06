@@ -90,43 +90,57 @@
 }
 
 
-.date-group {
-  display: flex;
+/* ---------- FIX DATE GROUP LAYOUT ---------- */
+.row.date-group {
+  justify-content: flex-start !important; /* Force left alignment */
   align-items: center;
-  justify-content: flex-start !important;
   gap: 8px;
   flex-wrap: nowrap;
-  text-align: left;
 }
 
+/* Label should not stretch */
 .date-group .date-label {
   flex: 0 0 auto;
   margin: 0;
   margin-right: 6px;
   font-weight: 500;
   color: #333;
-  width: auto;
   text-align: left;
+  white-space: nowrap;
 }
 
+/* Container for inputs: left-aligned */
 .date-group .date-inputs {
   display: flex;
-  gap: 6px;
   flex-grow: 0;
   justify-content: flex-start;
-  margin-left: 0 !important;
+  gap: 6px;
 }
 
+/* Compact input fields */
 .date-group .date-inputs input {
-  width: 3.2em;
+  width: 2.8em;
   text-align: center;
   padding: 4px 0;
+  font-size: 13px;
   border: 1px solid #ccc;
   border-radius: 4px;
   background: #fff;
-  font-size: 13px;
 }
 
+/* For mobile screens */
+@media (max-width: 600px) {
+  .row.date-group {
+    flex-wrap: wrap;
+  }
+  .date-group .date-label {
+    width: 100%;
+    margin-bottom: 4px;
+  }
+  .date-group .date-inputs {
+    width: 100%;
+  }
+}
 
 
 

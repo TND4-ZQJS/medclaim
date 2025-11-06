@@ -92,52 +92,49 @@
 
 /* --- New CSS for In-Row Date Layout --- */
 
-/* 1. Use Flexbox on the parent to align items horizontally */
 .date-group {
-    display: flex;
-    align-items: center; /* Vertically centers items */
-    gap: 12px; /* Standard spacing between main elements */
-    flex-wrap: nowrap; /* Prevent wrapping to a new line on smaller screens */
+  display: flex;
+  align-items: center;
+  gap: 8px;              /* tighter spacing between label & inputs */
+  flex-wrap: nowrap;
+  justify-content: flex-start; /* align everything left */
 }
 
-/* 2. Style the main label text to be concise */
+/* Label slightly smaller and closer to inputs */
 .date-group .date-label {
-    /* flex:1 was on the old label, adjust for new structure */
-    flex-shrink: 0; /* Keep the label from shrinking too much */
-    width: auto;
-    margin: 0; /* Clear previous label margins */
+  flex-shrink: 0;
+  margin: 0;
+  font-weight: 500;
+  color: #333;
+  min-width: 120px;      /* optional: align all labels to same width */
+  text-align: left;
 }
 
-/* 3. Use Flexbox for the three input fields */
+/* Inputs: smaller width & closer grouping */
 .date-group .date-inputs {
-    display: flex;
-    flex-grow: 1; /* Allows this group to take up the remaining space */
-    gap: 8px; /* Small spacing between DD, MM, YYYY boxes */
+  display: flex;
+  gap: 6px;              /* smaller gap between DD / MM / YYYY */
+  flex-grow: 0;          /* don't stretch the group */
+  justify-content: flex-start;
 }
 
-/* 4. Ensure date inputs share space equally */
 .date-group .date-inputs input {
-    width: 4em; /* Approximate width */
-    text-align: center;
-    flex-grow: 1; /* Allow each date part to grow equally */
-    flex-basis: 0; /*Basis for even growth */
+  width: 3.2em;          /* narrower boxes (was 4em) */
+  text-align: center;
+  padding: 4px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  font-size: 13px;
+  transition: all 0.2s ease;
 }
 
-/* 5. Adjust for mobile view (optional, but recommended) */
-@media (max-width: 600px) {
-  .date-group {
-    flex-wrap: wrap; /* Allow wrapping on small screens */
-    gap: 4px;
-  }
-  /* On mobile, stack the label and then put the inputs below */
-  .date-group .date-label {
-      width: 100%; 
-      margin-bottom: 1.5px;
-  }
-  .date-group .date-inputs {
-    gap: 4px;
-  }
+.date-group .date-inputs input:focus {
+  border-color: #007aff;
+  box-shadow: 0 0 0 2px rgba(0,122,255,0.15);
+  outline: none;
 }
+
 
 
   /* Signature preview tiles */

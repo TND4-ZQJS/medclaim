@@ -90,50 +90,43 @@
 }
 
 
-/* --- New CSS for In-Row Date Layout --- */
-
 .date-group {
   display: flex;
   align-items: center;
-  gap: 8px;              /* tighter spacing between label & inputs */
+  justify-content: flex-start !important;
+  gap: 8px;
   flex-wrap: nowrap;
-  justify-content: flex-start; /* align everything left */
-}
-
-/* Label slightly smaller and closer to inputs */
-.date-group .date-label {
-  flex-shrink: 0;
-  margin: 0;
-  font-weight: 500;
-  color: #333;
-  min-width: 120px;      /* optional: align all labels to same width */
   text-align: left;
 }
 
-/* Inputs: smaller width & closer grouping */
+.date-group .date-label {
+  flex: 0 0 auto;
+  margin: 0;
+  margin-right: 6px;
+  font-weight: 500;
+  color: #333;
+  width: auto;
+  text-align: left;
+}
+
 .date-group .date-inputs {
   display: flex;
-  gap: 6px;              /* smaller gap between DD / MM / YYYY */
-  flex-grow: 0;          /* don't stretch the group */
+  gap: 6px;
+  flex-grow: 0;
   justify-content: flex-start;
+  margin-left: 0 !important;
 }
 
 .date-group .date-inputs input {
-  width: 3.2em;          /* narrower boxes (was 4em) */
+  width: 3.2em;
   text-align: center;
   padding: 4px 0;
   border: 1px solid #ccc;
   border-radius: 4px;
   background: #fff;
   font-size: 13px;
-  transition: all 0.2s ease;
 }
 
-.date-group .date-inputs input:focus {
-  border-color: #007aff;
-  box-shadow: 0 0 0 2px rgba(0,122,255,0.15);
-  outline: none;
-}
 
 
 

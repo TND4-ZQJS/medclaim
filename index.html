@@ -145,63 +145,77 @@
   }
 }
 
-/* ---------- TIME GROUP LAYOUT: SAME AS DATE GROUP ---------- */
-.row.time-group {
+/* ---------- TIME GROUP USING LABEL (NO HTML CHANGE NEEDED) ---------- */
+
+/* Make the label behave like .row.date-group */
+label:has(.time-input-group) {
   display: flex;
-  justify-content: flex-start !important;
+  flex-direction: row;
   align-items: center;
   gap: 8px;
   flex-wrap: nowrap;
 }
 
-/* Label - same behavior as date-label */
-.time-group .time-label {
+/* Style the label text (the text before the div) */
+label:has(.time-input-group) > :first-child {
   flex: 0 0 auto;
-  margin: 0;
+  white-space: nowrap;
   margin-right: 6px;
   font-weight: 500;
   color: #333;
-  white-space: nowrap;
 }
 
-/* Input row */
-.time-group .time-inputs {
+/* Fix for label text (because :first-child matches text node) */
+label:has(.time-input-group)::first-line {
+  font-weight: 500;
+}
+
+/* Container for HH/MM/AMPM */
+.time-input-group {
   display: flex;
-  flex-grow: 0;
-  justify-content: flex-start;
   align-items: center;
   gap: 6px;
+  flex-grow: 0;
+  flex-shrink: 0;
 }
 
-/* Inputs match date input style */
-.time-group .time-inputs input,
-.time-group .time-inputs select {
+/* Match padding, border, height, radius of date inputs */
+.time-input-group input,
+.time-input-group select {
   width: 3.8em;
   text-align: center;
-  padding: 9px 0;
+  padding: 9px 0;                /* SAME as date field */
   border: 1px solid #ddd;
-  border-radius: 10px;
+  border-radius: 10px;           /* SAME rounded corners */
   background: #fff;
   font-size: 1rem;
   line-height: 1.2;
   box-sizing: border-box;
 }
 
-/* AM/PM slightly wider (optional) */
-.time-group .time-inputs select {
+/* AMPM select wider slightly */
+.time-input-group select {
   width: 4.8em;
 }
 
-/* Mobile behavior (same as date-group) */
+/* Separator (:) alignment fix */
+.time-input-group .separator {
+  display: inline-block;
+  margin: 0 2px;
+}
+
+/* Mobile style mirroring .date-group */
 @media (max-width: 600px) {
-  .row.time-group {
+  label:has(.time-input-group) {
     flex-wrap: wrap;
   }
-  .time-group .time-label {
+
+  label:has(.time-input-group) > :first-child {
     width: 100%;
     margin-bottom: 4px;
   }
-  .time-group .time-inputs {
+
+  .time-input-group {
     width: 100%;
   }
 }
@@ -456,20 +470,22 @@
   </div>
 </div>
 
-<div class="row time-group">
-  <div class="time-label">Appointment Time</div>
-
-  <div class="time-inputs time-input-group">
-      <input type="text" class="hh">
-      <span>:</span>
-      <input type="text" class="mm">
-      <select class="ampm">
-        <option>--</option>
-        <option>AM</option>
-        <option>PM</option>
-      </select>
+<label>Appointment Time
+  <div class="time-input-group">
+    <input id="AppointmentTime_HH" class="persist time-input" placeholder="HH" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    
+    <span class="separator">:</span>
+    
+    <input id="AppointmentTime_MM" class="persist time-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    
+    <select id="AppointmentTime_AMPM" class="persist">
+      <option value="">--</option>
+      <option value="AM">AM</option>
+      <option value="PM">PM</option>
+    </select>
   </div>
-</div>
+</label>
+
 
 
   </section>

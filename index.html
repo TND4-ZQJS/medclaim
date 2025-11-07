@@ -145,34 +145,65 @@
   }
 }
 
-/* ---------- TIME INPUT GROUP (MATCH DATE INPUT STYLE) ---------- */
+/* ---------- TIME GROUP LAYOUT: SAME AS DATE GROUP ---------- */
+.row.time-group {
+  display: flex;
+  justify-content: flex-start !important;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
 
-.time-input-group input,
-.time-input-group select {
-  width: 3.8em;              /* Same width as date inputs */
+/* Label - same behavior as date-label */
+.time-group .time-label {
+  flex: 0 0 auto;
+  margin: 0;
+  margin-right: 6px;
+  font-weight: 500;
+  color: #333;
+  white-space: nowrap;
+}
+
+/* Input row */
+.time-group .time-inputs {
+  display: flex;
+  flex-grow: 0;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Inputs match date input style */
+.time-group .time-inputs input,
+.time-group .time-inputs select {
+  width: 3.8em;
   text-align: center;
-  padding: 9px 0;            /* SAME padding & height */
+  padding: 9px 0;
   border: 1px solid #ddd;
-  border-radius: 10px;       /* Same rounded corners */
+  border-radius: 10px;
   background: #fff;
   font-size: 1rem;
   line-height: 1.2;
   box-sizing: border-box;
 }
 
-/* Override select slightly because it has text longer than 2 chars */
-.time-input-group select {
-  width: 4.8em;              /* AM/PM needs slightly wider box */
-  padding: 9px 6px;          /* same vertical padding */
+/* AM/PM slightly wider (optional) */
+.time-group .time-inputs select {
+  width: 4.8em;
 }
 
-/* Keep spacing inside the time group */
-.time-input-group {
-  display: flex;
-  align-items: center;
-  gap: 6px;                  /* match date-group gap */
-  flex-grow: 0;
-  flex-shrink: 0;
+/* Mobile behavior (same as date-group) */
+@media (max-width: 600px) {
+  .row.time-group {
+    flex-wrap: wrap;
+  }
+  .time-group .time-label {
+    width: 100%;
+    margin-bottom: 4px;
+  }
+  .time-group .time-inputs {
+    width: 100%;
+  }
 }
 
   /* Signature preview tiles */
@@ -425,21 +456,19 @@
   </div>
 </div>
 
-    <label>Appointment Time
-  <div class="time-input-group">
-    <input id="AppointmentTime_HH" class="persist time-input" placeholder="HH" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
-    
-    <span class="separator">:</span>
-    
-    <input id="AppointmentTime_MM" class="persist time-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
-    
-    <select id="AppointmentTime_AMPM" class="persist">
-      <option value="">--</option>
-      <option value="AM">AM</option>
-      <option value="PM">PM</option>
-    </select>
+<div class="row time-group">
+  <div class="time-label">Appointment Time</div>
+
+  <div class="time-inputs time-input-group">
+      <input type="text" class="hh">
+      <span>:</span>
+      <input type="text" class="mm">
+      <select class="ampm">
+        <option>AM</option>
+        <option>PM</option>
+      </select>
   </div>
-</label>
+</div>
 
 
   </section>

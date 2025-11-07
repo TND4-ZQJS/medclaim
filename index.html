@@ -145,58 +145,34 @@
   }
 }
 
-/* --- REVISED CSS: Label and Time Group in a Row (Fixing the Stretch) --- */
+/* ---------- TIME INPUT GROUP (MATCH DATE INPUT STYLE) ---------- */
 
-/* 1. Target the label that contains the time group */
-label:has(.time-input-group) {
-    display: flex;
-    align-items: center; 
-    justify-content: flex-start; /* Start elements from the left */
-    gap: 15px; 
-    
-    /* CRITICAL FIX: Ensure the label text doesn't stretch */
-    /* Only allow the label text to be as wide as its content */
-    flex-direction: row;
-    flex-wrap: nowrap;
-    width: 100%; /* Important for full width coverage */
-}
-
-/* 2. Control the label's text part (the 'Appointment Time' text) */
-label:has(.time-input-group) > .time-input-group ~ * {
-    /* Use a general selector for the label text */
-    flex-shrink: 0; /* Prevents the text from shrinking */
-    flex-grow: 0;  /* Prevents the text from stretching */
-    white-space: nowrap; 
-    width: auto;
-}
-
-/* 3. Control the time input group container */
-.time-input-group {
-    /* CRITICAL FIX: Ensure the entire input group does NOT stretch */
-    flex-grow: 0; /* Prevent stretching */
-    flex-shrink: 0; /* Prevent shrinking */
-    width: auto; /* Width determined by its children (HH, MM, AM/PM) */
-    max-width: none; 
-    margin-top: 0; 
-    
-    /* Keep the internal spacing and alignment for HH:MM AM/PM */
-    display: flex;
-    align-items: center; 
-    gap: 8px; 
-}
-
-  /* Reduce size of HH and MM input fields */
-.time-input-group input {
-    width: 40px;        /* change to 32px or 28px if needed */
-    padding: 4px 6px;
-    text-align: center;
-}
-
-/* Reduce width of AM/PM select */
+.time-input-group input,
 .time-input-group select {
-    width: 60px;
-    padding: 4px 6px;
-    text-align: center;
+  width: 3.8em;              /* Same width as date inputs */
+  text-align: center;
+  padding: 9px 0;            /* SAME padding & height */
+  border: 1px solid #ddd;
+  border-radius: 10px;       /* Same rounded corners */
+  background: #fff;
+  font-size: 1rem;
+  line-height: 1.2;
+  box-sizing: border-box;
+}
+
+/* Override select slightly because it has text longer than 2 chars */
+.time-input-group select {
+  width: 4.8em;              /* AM/PM needs slightly wider box */
+  padding: 9px 6px;          /* same vertical padding */
+}
+
+/* Keep spacing inside the time group */
+.time-input-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;                  /* match date-group gap */
+  flex-grow: 0;
+  flex-shrink: 0;
 }
 
   /* Signature preview tiles */

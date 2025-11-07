@@ -145,36 +145,32 @@
   }
 }
 
-/* Styling for the new time input group */
-.time-input-group {
+/* --- NEW CSS: Label and Time Group in a Row --- */
+label:has(.time-input-group) {
     display: flex;
-    align-items: center; /* Vertically center the inputs and separator */
-    gap: 8px; /* Standard gap between elements */
-    width: 100%; /* Take up full available width */
-    max-width: 300px; /* Optional: Constrain width for aesthetics */
-    margin-top: 6px;
+    align-items: center; /* Vertically align the label text and the input boxes */
+    gap: 15px; /* Space between the label text and the input boxes */
 }
 
-/* Style the separator (the colon) */
-.time-input-group .separator {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #333;
+/* Ensure the label text doesn't stretch */
+label:has(.time-input-group) {
+    flex-direction: row;
+    justify-content: flex-start;
+    
+    /* Make the label itself a compact element */
+    width: auto; 
+    
+    /* Ensure the label text doesn't break into new lines if possible */
+    white-space: nowrap; 
 }
 
-/* Set fixed widths for HH and MM inputs */
-.time-input-group .time-input {
-    width: 3.0em; /* Just wide enough for "12" */
-    text-align: center;
-    padding: 8px 4px; /* Slightly adjust padding */
+/* Override the default 'width: 100%' for the .time-input-group */
+.time-input-group {
+    /* ... existing properties ... */
+    width: auto; /* Allow the group to only be as wide as its content */
+    max-width: none; /* Remove the 300px constraint when placed in a row */
+    margin-top: 0; /* Clear margin since it's now centered vertically */
 }
-
-/* Ensure the dropdown doesn't stretch too wide */
-.time-input-group select {
-    width: auto;
-    flex-grow: 1; /* Allow it to take up remaining space */
-}
-
 
 
   /* Signature preview tiles */

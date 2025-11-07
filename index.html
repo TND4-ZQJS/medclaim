@@ -458,6 +458,7 @@ label:has(.time-input-group)::first-line {
       </label>
     </div>
 
+    <div id="accidentsection">
     <div class="row date-group"> 
   <label class="date-label">Date of accident
     <span class="muted">(DD/MM/YYYY)</span>
@@ -470,7 +471,8 @@ label:has(.time-input-group)::first-line {
   </div>
 </div>
 
-<label>Appointment Time
+    <div>
+<label>Time of accident
   <div class="time-input-group">
     <input id="AppointmentTime_HH" class="persist time-input" placeholder="HH" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
     
@@ -485,9 +487,48 @@ label:has(.time-input-group)::first-line {
     </select>
   </div>
 </label>
+      </div>
 
+    <div class="row">
+      <label style="flex:1">Place of accident<input id="Complx_ReduceFA_Basic_Amt" class="persist" type="text" placeholder="Enter name">
+      </label>
+     </div>
 
+    <div class="row">
+      <label style="flex:1">How did the accident happen?<textarea id="Complx_ReduceFA_Basic_Amt" class="persist" placeholder="Enter address"></textarea>
+      </label>
+     </div>
 
+    <div class="row">
+      <label style="flex:1">Nature and extend of injury<textarea id="Complx_ReduceFA_Basic_Amt" class="persist" placeholder="Enter address"></textarea>
+      </label>
+     </div>
+
+    <div class="row date-group"> 
+  <label class="date-label">Date first absent from work due to accident
+    <span class="muted">(DD/MM/YYYY)</span>
+  </label>
+    
+      <div class="date-inputs">
+    <input id="UpdateOccupation_Day" class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input id="UpdateOccupation_Month" class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input id="UpdateOccupation_Year" class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
+  </div>
+</div>
+
+    <div class="row date-group"> 
+  <label class="date-label">Date returned to work
+    <span class="muted">(DD/MM/YYYY)</span>
+  </label>
+    
+      <div class="date-inputs">
+    <input id="UpdateOccupation_Day" class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input id="UpdateOccupation_Month" class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input id="UpdateOccupation_Year" class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
+  </div>
+</div>
+
+  </div>
   </section>
   
  <!-- SECTION: User Options -->

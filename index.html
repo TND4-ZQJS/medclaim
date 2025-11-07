@@ -185,6 +185,19 @@ label:has(.time-input-group) > .time-input-group ~ * {
     gap: 8px; 
 }
 
+  /* Reduce size of HH and MM input fields */
+.time-input-group input {
+    width: 40px;        /* change to 32px or 28px if needed */
+    padding: 4px 6px;
+    text-align: center;
+}
+
+/* Reduce width of AM/PM select */
+.time-input-group select {
+    width: 60px;
+    padding: 4px 6px;
+    text-align: center;
+}
 
   /* Signature preview tiles */
   .sig-preview{

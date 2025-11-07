@@ -145,31 +145,44 @@
   }
 }
 
-/* --- NEW CSS: Label and Time Group in a Row --- */
+/* --- REVISED CSS: Label and Time Group in a Row (Fixing the Stretch) --- */
+
+/* 1. Target the label that contains the time group */
 label:has(.time-input-group) {
     display: flex;
-    align-items: center; /* Vertically align the label text and the input boxes */
-    gap: 15px; /* Space between the label text and the input boxes */
-}
-
-/* Ensure the label text doesn't stretch */
-label:has(.time-input-group) {
+    align-items: center; 
+    justify-content: flex-start; /* Start elements from the left */
+    gap: 15px; 
+    
+    /* CRITICAL FIX: Ensure the label text doesn't stretch */
+    /* Only allow the label text to be as wide as its content */
     flex-direction: row;
-    justify-content: flex-start;
-    
-    /* Make the label itself a compact element */
-    width: auto; 
-    
-    /* Ensure the label text doesn't break into new lines if possible */
-    white-space: nowrap; 
+    flex-wrap: nowrap;
+    width: 100%; /* Important for full width coverage */
 }
 
-/* Override the default 'width: 100%' for the .time-input-group */
+/* 2. Control the label's text part (the 'Appointment Time' text) */
+label:has(.time-input-group) > .time-input-group ~ * {
+    /* Use a general selector for the label text */
+    flex-shrink: 0; /* Prevents the text from shrinking */
+    flex-grow: 0;  /* Prevents the text from stretching */
+    white-space: nowrap; 
+    width: auto;
+}
+
+/* 3. Control the time input group container */
 .time-input-group {
-    /* ... existing properties ... */
-    width: auto; /* Allow the group to only be as wide as its content */
-    max-width: none; /* Remove the 300px constraint when placed in a row */
-    margin-top: 0; /* Clear margin since it's now centered vertically */
+    /* CRITICAL FIX: Ensure the entire input group does NOT stretch */
+    flex-grow: 0; /* Prevent stretching */
+    flex-shrink: 0; /* Prevent shrinking */
+    width: auto; /* Width determined by its children (HH, MM, AM/PM) */
+    max-width: none; 
+    margin-top: 0; 
+    
+    /* Keep the internal spacing and alignment for HH:MM AM/PM */
+    display: flex;
+    align-items: center; 
+    gap: 8px; 
 }
 
 

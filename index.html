@@ -100,14 +100,16 @@
 
 /* Label should not stretch */
 .date-group .date-label {
-  flex: 0 0 auto;
-  margin: 0;
-  margin-right: 6px;
+  flex: 1 1 auto;
+  margin: 0 6px 0 0;
   font-weight: 500;
   color: #333;
   text-align: left;
-  white-space: nowrap;
+  white-space: normal; /* ✅ Allow wrapping */
+  word-break: break-word;
+  line-height: 1.4;
 }
+
 
 /* Container for inputs: left-aligned */
 .date-group .date-inputs {

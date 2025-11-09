@@ -478,7 +478,7 @@ label:has(.time-input-group)::first-line {
     
     <span class="separator">:</span>
     
-    <input id="AppointmentTime_MM" class="persist time-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input class="persist time-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
     
     <select id="AppointmentTime_AMPM" class="persist">
       <option value="">--</option>
@@ -886,7 +886,7 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 
   /* --- UNIVERSAL AUTO-TAB TIME LOGIC --- */
-  const timeGroups = document.querySelectorAll('.time-group');
+  const timeGroups = document.querySelectorAll('.time-input-group');
 
   timeGroups.forEach(group => {
     const hourInput = group.querySelector('input[placeholder="HH"]');

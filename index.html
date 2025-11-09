@@ -820,7 +820,7 @@ label:has(.time-input-group)::first-line {
 }
   
 /* ---------- CONFIG ---------- */
-const PDF_FILENAME = "Request-For-Change-of-Policy-Condition_LF5189_fillable.pdf";
+const PDF_FILENAME = "Medical and Accident Claim_Claimant's Statement_LF5191_202305_fillable";
 
 // ---------- SECTION CONTROL CONFIG ----------
 const CONTROLLER_BY_SECTION = {
@@ -855,10 +855,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-
+  
+/* --- UNIVERSAL AUTO-TAB (DATE) LOGIC --- */
 window.addEventListener("DOMContentLoaded", () => {
 
-  /* --- UNIVERSAL AUTO-TAB DATE LOGIC --- */
   const dateGroups = document.querySelectorAll('.date-group'); // each date section
 
   dateGroups.forEach(group => {
@@ -885,7 +885,7 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  /* --- UNIVERSAL AUTO-TAB TIME LOGIC --- */
+  /* --- UNIVERSAL AUTO-TAB (TIME) LOGIC --- */
   const timeGroups = document.querySelectorAll('.time-input-group');
 
   timeGroups.forEach(group => {
@@ -1269,76 +1269,95 @@ async function fillPDF(){
     const form = pdfDoc.getForm();
 
     const pages = pdfDoc.getPages();
-    const page = pages[2]; // use 2nd page
+    const page = pages[3]; // use 4th page
 
 
     // FILL FORM FIELDS FROM LOCALSTORAGE HERE
 const fieldNames = [
-  "Complx_Insured_Name",
-  "Complx_PolicyNo",
-  "Complx_Insured_NIRC",
-  "Complx_Occupation_New",
-  "Complx_Occupation_Comp",
-  "Complx_Occupation_Duty",
-  "Complx_Occupation_MM",
-  "Complx_Occupation_YYYY",
-  "Complx_Occupation_Nature",
-  "Complx_ReducePremium_Basic_Yes",
-  "Complx_ReducePremium_Basic_Amt",
-  "Complx_ReducePremium_Topup_Yes",
-  "Complx_ReducePremium_Topup_Amt",
-  "Complx_IncreaseFA_Basic",
-  "Complx_IncreaseFA_Basic_Yes",
-  "Complx_IncreaseFA_Rider_Yes",
-  "Complx_IncreaseFA_Rider1_Name",
-  "Complx_IncreaseFA_Rider1_FA",
-  "Complx_IncreaseFA_Rider2_Name",
-  "Complx_IncreaseFA_Rider3_Name",
-  "Complx_IncreaseFA_Rider2_FA", 
+  "ClmMed_Basicinfo_PolicyNo1",
+  "ClmMed_Basicinfo_PolicyNo2",
+  "ClmMed_Basicinfo_PolicyNo3",
+  "ClmMed_Basicinfo_PolicyNo4",
+  "ClmMed_Basicinfo_Day",
+  "ClmMed_Basicinfo_Month",
+  "ClmMed_Basicinfo_Year",
+  "ClmMed_Basicinfo_Agent",
+  "ClmMed_Basicinfo_Agency",
+  "ClmMed_Basicinfo_Mobile",
+  "ClmMed_Claimtype_Hosp",
+  "ClmMed_Claimtype_OpDengue",
+  "ClmMed_Claimtype_OpKidney",
+  "ClmMed_Claimtype_Home",
+  "ClmMed_Claimtype_AccInjury",
+  "ClmMed_Claimtype_AccIndemnity",
+  "ClmMed_Claimtype_Others",
+  "ClmMed_Claimtype_Others_Text",
+  "ClmMed_Claimtype_Amt",
+  "ClmMed_Insuredinfo_Name",
+  "ClmMed_Insuredinfo_NIRC", 
   "Complx_IncreaseFA_Rider3_FA", 
-  "Complx_AddRider_Yes",
-  "Complx_AddRider1_Name",
-  "Complx_AddRider1_Term",
-  "Complx_AddRider1_FA",
-  "Complx_AddRider2_Name",
-  "Complx_AddRider3_Name",
-  "Complx_AddRider2_Term",
-  "Complx_AddRider3_Term",
-  "Complx_AddRider2_FA",
-  "Complx_AddRider3_FA",
-  "Complx_Review_Rating",
-  "Complx_Review_Exclusion",
-  "Complx_ReduceFA_Basic_Yes",
-  "Complx_ReduceFA_Basic_Amt",
-  "Complx_ReduceFA_Rider_Yes",
-  "Complx_ReduceFA_Rider1_Name2",
-  "Complx_ReduceFA_Rider1_Name3",
-  "Complx_ReduceFA_Rider1_FA1",
-  "Complx_ReduceFA_Rider1_FA2",
-  "Complx_ReduceFA_Rider1_FA3",
-  "Complx_CancelRider_Yes",
-  "Complx_ReduceFA_Rider_Name1",
-  "Complx_CancelRider_Name1",
-  "Complx_CancelRider_Name2",
-  "Complx_CancelRider_Name3",
-  "Complx_CancelRider_Name4",
-  "Complx_CancelRider_Name5",
-  "Complx_CancelRider_Name6",
-  "Complx_Others_Line1",
-  "Complx_Others_Line2",
-  "Complx_Others_Line3",
-  "Complx_Others_Line4",
-  "Complx_Sign_State",
-  "Complx_Sign_Day",
-  "Complx_Sign_Month",
-  "Complx_Sign_Year",
-  "Complx_Sign_PO_Name",
-  "Complx_Sign_PO_NIRC",
-  "Complx_Sign_Trustee_Name",
-  "Complx_Sign_Trustee_NIRC",
-  "Complx_Sign_Witness_Name",
-  "Complx_Sign_Witness_NIRC",
-  "Complx_Sign_Witness_Mobile"
+  "ClmMed_Insuredinfo_Mobile",
+  "ClmMed_Insuredinfo_Email",
+  "ClmMed_Insuredinfo_Add",
+  "ClmMed_Insuredinfo_Occupation",
+  "ClmMed_Insuredinfo_Duties",
+  "ClmMed_Insuredinfo_Employer",
+  "ClmMed_Insuredinfo_EmployerAdd",
+  "ClmMed_POinfo_Name",
+  "ClmMed_POinfo_NIRC",
+  "ClmMed_POinfo_Mobile",
+  "ClmMed_POinfo_Email",
+  "ClmMed_POinfo_Add",
+  "ClmMed_Illness_Nature",
+  "ClmMed_Illness_Sympton",
+  "ClmMed_Illness_Diagnosis_Month",
+  "ClmMed_Illness_Diagnosis_Year",
+  "ClmMed_Illness_Onset_Month",
+  "ClmMed_Illness_Diagnosis_Day",
+  "ClmMed_Accident_Day",
+  "ClmMed_Accident_Month",
+  "ClmMed_Illness_Onset_Year",
+  "ClmMed_Accident_Time",
+  "ClmMed_Accident_AM",
+  "ClmMed_Accident_PM",
+  "ClmMed_Accident_Place",
+  "ClmMed_Accident_How",
+  "ClmMed_Accident_Injury",
+  "ClmMed_Illness_Onset_Day",
+  "ClmMed_Accident_AbsentDay",
+  "ClmMed_Accident_Year",
+  "ClmMed_Accident_ReturnDay",
+  "ClmMed_Accident_AbsentMonth",
+  "ClmMed_Accident_ReturnMonth",
+  "ClmMed_Accident_AbsentYear",
+  "ClmMed_Accident_ReturnYear",
+  "ClmMed_Dr_First_Date",
+  "ClmMed_Dr_First_NameAdd",
+  "ClmMed_Dr_Others_NameAdd",
+  "ClmMed_Dr_Others_Date",
+  "ClmMed_Dr_Regular_Date",
+  "ClmMed_Dr_Regular_NameAdd",
+  "ClmMed_Dr_5yrs_Date",
+  "ClmMed_Dr_5yrs_NameAdd",
+  "ClmMed_OtherCover_CompName",
+  "ClmMed_OtherCover_PolicyNo",
+  "ClmMed_OtherCover_Date",
+  "ClmMed_OtherCover_FA",
+  "ClmMed_EBank_Name",
+  "ClmMed_EBank_NIRC",
+  "ClmMed_EBank_AccNo",
+  "ClmMed_EBank_Bank",
+  "ClmMed_EBank_Conventional",
+  "ClmMed_EBank_Islamic",
+  "ClmMed_Sign_Witness_Name",
+  "ClmMed_Sign_Witness_NIRC",
+  "ClmMed_Sign_Witness_Date",
+  "ClmMed_Sign_Witness_Mobile",
+  "ClmMed_Sign_PO_Name",
+  "ClmMed_Sign_PO_NIRC",
+  "ClmMed_Sign_PO_Date",
+  "ClmMed_Sign_Relationship",
+  "ClmMed_Sign_Relationship_Mobile"
 ];
 
 fieldNames.forEach(fieldName => {

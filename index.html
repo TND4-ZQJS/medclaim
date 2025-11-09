@@ -271,21 +271,21 @@ label:has(.time-input-group)::first-line {
   </label>
   
   <div class="date-inputs">
-    <input id="UpdateOccupation_Day" class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
-    <input id="UpdateOccupation_Month" class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
-    <input id="UpdateOccupation_Year" class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Basicinfo_Day" class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Basicinfo_Month" class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Basicinfo_Year" class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
   </div>
 </div>
 
    <div class="grid-2">
        <label style="flex:1">Agent Name
-        <input id="Complx_Insured_NIRC" class="persist" type="text" placeholder="Enter name">
+        <input id="ClmMed_Basicinfo_Agent" class="persist" type="text" placeholder="Enter name">
       </label>
        <label style="flex:1">Agent Contact
-        <input id="Complx_Insured_NIRC" class="persist" type="text" placeholder="Enter contact">
+        <input id="ClmMed_Basicinfo_Mobile" class="persist" type="text" placeholder="Enter contact">
       </label>
       <label style="flex:1">Agency Name
-        <input id="Complx_Insured_NIRC" class="persist" type="text" placeholder="Enter name eg. DU Life Group Sdn Bhd">
+        <input id="CClmMed_Basicinfo_Agency" class="persist" type="text" placeholder="Enter name eg. DU Life Group Sdn Bhd">
       </label>
    </div>
      
@@ -312,30 +312,30 @@ label:has(.time-input-group)::first-line {
 
     <section class="section">
    <div class="grid-2">
-      <label style="flex:1"><input id="Complx_Insured_NIRC" class="persist" type="checkbox">Hospitalisation/Day Surgery Medical Expenses
+      <label style="flex:1"><input id="ClmMed_Claimtype_Hosp" class="persist" type="checkbox">Hospitalisation/Day Surgery Medical Expenses
       </label>
-      <label style="flex:1"><input id="Complx_Insured_NIRC" class="persist" type="checkbox">Pre or Post Hospitalisation Treatment
+      <label style="flex:1"><input id="ClmMed_Claimtype_PrePost" class="persist" type="checkbox">Pre or Post Hospitalisation Treatment
       </label>
-      <label style="flex:1"><input id="Complx_Insured_NIRC" class="persist" type="checkbox">Outpatient Emergency Accidental Injury Treatment
+      <label style="flex:1"><input id="ClmMed_Claimtype_AccInjury" class="persist" type="checkbox">Outpatient Emergency Accidental Injury Treatment
       </label>
       <label style="flex:1"><input id="Complx_Insured_NIRC" class="persist" type="checkbox">Outpatient Kidney Dialysis/Outpatient Cancer Treatment
       </label>
-      <label style="flex:1"><input id="Complx_Insured_NIRC" class="persist" type="checkbox">Outpatient Dengue Fever Treatment
+      <label style="flex:1"><input id="ClmMed_Claimtype_OpDengue" class="persist" type="checkbox">Outpatient Dengue Fever Treatment
       </label>
-      <label style="flex:1"><input id="Complx_Insured_NIRC" class="persist" type="checkbox">Home Nursing Care
+      <label style="flex:1"><input id="ClmMed_Claimtype_Home" class="persist" type="checkbox">Home Nursing Care
       </label>
-      <label style="flex:1"><input id="Complx_Insured_NIRC" class="persist" type="checkbox">Hospitalization Benefit/Allowance only
+      <label style="flex:1"><input id="ClmMed_Claimtype_HospBen" class="persist" type="checkbox">Hospitalization Benefit/Allowance only
       </label>
-      <label style="flex:1"><input id="Complx_Insured_NIRC" class="persist" type="checkbox">Accident Indemnity
+      <label style="flex:1"><input id="ClmMed_Claimtype_AccIndemnity" class="persist" type="checkbox">Accident Indemnity
       </label>
-      <label style="flex:1"><input id="Complx_Insured_NIRC" class="persist" type="checkbox">Others<input id="ClmMed_Claimtype_Others_Text" class="persist" type="text" placeholder="Please Specify">
+      <label style="flex:1"><input id="CoClmMed_Claimtype_Others" class="persist" type="checkbox">Others<input id="ClmMed_Claimtype_Others_Text" class="persist" type="text" placeholder="Please Specify">
       </label>
     </div>
     </section>
     
      <div class="row">
        <label style="flex:1">Total Claim Amount (Medical Expenses Only): (RM)
-        <input id="Complx_Occupation_Nature" class="persist" type="text" placeholder="Enter amount (only enter digits)">
+        <input id="ClmMed_Claimtype_Amt" class="persist" type="text" placeholder="Enter amount (only enter digits)">
       </label>
     </div>
     
@@ -349,37 +349,37 @@ label:has(.time-input-group)::first-line {
  </div>
     
      <div class="row">
-      <label style="flex:1">Name<input id="Complx_ReduceFA_Basic_Amt" class="persist" type="text" placeholder="Enter name">
+      <label style="flex:1">Name<input id="ClmMed_Insuredinfo_Name" class="persist" type="text" placeholder="Enter name">
       </label>
     </div>
     <div class="row">
-      <label style="flex:1">NIRC/Passport No.<input id="Complx_ReduceFA_Basic_Amt" class="persist" type="text" placeholder="Enter number">
+      <label style="flex:1">NIRC/Passport No.<input id="ClmMed_Insuredinfo_NIRC" class="persist" type="text" placeholder="Enter number">
       </label>
      </div>
     <div class="row">
-      <label style="flex:1">Mobile No.<input id="Complx_ReduceFA_Basic_Amt" class="persist" type="text" placeholder="Enter mobile no.">
+      <label style="flex:1">Mobile No.<input id="ClmMed_Insuredinfo_Mobile" class="persist" type="text" placeholder="Enter mobile no.">
       </label>
-         <label style="flex:1">Email<input id="Complx_ReduceFA_Basic_Amt" class="persist" type="text" placeholder="Enter email">
+         <label style="flex:1">Email<input id="ClmMed_Insuredinfo_Email" class="persist" type="text" placeholder="Enter email">
       </label>
      </div>
    <div class="row">
-      <label style="flex:1">Current Correspondence Address<textarea id="Complx_ReduceFA_Basic_Amt" class="persist" placeholder="Enter address"></textarea>
+      <label style="flex:1">Current Correspondence Address<textarea id="ClmMed_Insuredinfo_Add" class="persist" placeholder="Enter address"></textarea>
       </label>
      </div>
        <div class="row">
-      <label style="flex:1">Current Occuption<input id="Complx_ReduceFA_Basic_Amt" class="persist" type="text" placeholder="Enter occupation">
+      <label style="flex:1">Current Occuption<input id="ClmMed_Insuredinfo_Occupat" class="persist" type="text" placeholder="Enter occupation">
       </label>
      </div>
        <div class="row">
-      <label style="flex:1">Exaxt Duties Performed<input id="Complx_ReduceFA_Basic_Amt" class="persist" type="text" placeholder="Enter number">
+      <label style="flex:1">Exaxt Duties Performed<input id="ClmMed_Insuredinfo_Duties" class="persist" type="text" placeholder="Enter number">
       </label>
      </div>
        <div class="row">
-      <label style="flex:1">Name of Current Employer<input id="Complx_ReduceFA_Basic_Amt" class="persist" type="text" placeholder="Enter number">
+      <label style="flex:1">Name of Current Employer<input id="ClmMed_Insuredinfo_Employer" class="persist" type="text" placeholder="Enter number">
       </label>
      </div>
        <div class="row">
-      <label style="flex:1">Address of Employer<textarea id="Complx_ReduceFA_Basic_Amt" class="persist" placeholder="Enter address"></textarea>
+      <label style="flex:1">Address of Employer<textarea id="ClmMed_Insuredinfo_EmployerAdd" class="persist" placeholder="Enter address"></textarea>
       </label>
      </div>
   </section>
@@ -395,21 +395,21 @@ label:has(.time-input-group)::first-line {
     
     <section class="section" id="Policyownerinfo">
         <div class="row">
-      <label style="flex:1">Name<input id="Complx_ReduceFA_Basic_Amt" class="persist" type="text" placeholder="Enter name">
+      <label style="flex:1">Name<input id="ClmMed_POinfo_Name" class="persist" type="text" placeholder="Enter name">
       </label>
      </div>
     <div class="row">
-      <label style="flex:1">NIRC/Passport No.<input id="Complx_ReduceFA_Basic_Amt" class="persist" type="text" placeholder="Enter number">
+      <label style="flex:1">NIRC/Passport No.<input id="ClmMed_POinfo_NIRC" class="persist" type="text" placeholder="Enter number">
       </label>
      </div>
     <div class="row">
-      <label style="flex:1">Mobile No.<input id="Complx_ReduceFA_Basic_Amt" class="persist" type="text" placeholder="Enter mobile no.">
+      <label style="flex:1">Mobile No.<input id="ClmMed_POinfo_Mobile" class="persist" type="text" placeholder="Enter mobile no.">
       </label>
-         <label style="flex:1">Email<input id="Complx_ReduceFA_Basic_Amt" class="persist" type="text" placeholder="Enter email">
+         <label style="flex:1">Email<input id="ClmMed_POinfo_Email" class="persist" type="text" placeholder="Enter email">
       </label>
      </div>
    <div class="row">
-      <label style="flex:1">Current Correspondence Address<textarea id="Complx_ReduceFA_Basic_Amt" class="persist" placeholder="Enter address"></textarea>
+      <label style="flex:1">Current Correspondence Address<textarea id="ClmMed_POinfo_Add" class="persist" placeholder="Enter address"></textarea>
       </label>
      </div>
     </section>
@@ -420,7 +420,7 @@ label:has(.time-input-group)::first-line {
     <h2>4. Particulars of Illness/Accident</h2>
 
      <div class="row">
-      <label style="flex:1">Nature of Illness Disability<input id="Complx_ReduceFA_Basic_Amt" class="persist" type="text" placeholder="Enter name">
+      <label style="flex:1">Nature of Illness Disability<input id="ClmMed_Illness_Nature" class="persist" type="text" placeholder="Enter name">
       </label>
      </div>
 
@@ -430,14 +430,14 @@ label:has(.time-input-group)::first-line {
   </label>
   
   <div class="date-inputs">
-    <input id="UpdateOccupation_Day" class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
-    <input id="UpdateOccupation_Month" class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
-    <input id="UpdateOccupation_Year" class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Illness_Diagnosis_Day" class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Illness_Diagnosis_Month" class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Illness_Diagnosis_Year" class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
   </div>
 </div>
 
        <div class="row">
-      <label style="flex:1">Presenting sign and symptoms<input id="Complx_ReduceFA_Basic_Amt" class="persist" type="text" placeholder="Enter name">
+      <label style="flex:1">Presenting sign and symptoms<input id="ClmMed_Illness_Sympton" class="persist" type="text" placeholder="Enter name">
       </label>
      </div>
 
@@ -447,9 +447,9 @@ label:has(.time-input-group)::first-line {
   </label>
     
       <div class="date-inputs">
-    <input id="UpdateOccupation_Day" class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
-    <input id="UpdateOccupation_Month" class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
-    <input id="UpdateOccupation_Year" class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Illness_Onset_Day" class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Illness_Onset_Month" class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input id="UClmMed_Illness_Onset_Year" class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
   </div>
 </div>
 
@@ -465,9 +465,9 @@ label:has(.time-input-group)::first-line {
   </label>
     
       <div class="date-inputs">
-    <input id="UpdateOccupation_Day" class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
-    <input id="UpdateOccupation_Month" class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
-    <input id="UpdateOccupation_Year" class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Accident_Day" class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Accident_Month" class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Accident_Year" class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
   </div>
 </div>
 
@@ -490,17 +490,17 @@ label:has(.time-input-group)::first-line {
       </div>
 
     <div class="row">
-      <label style="flex:1">Place of accident<input id="Complx_ReduceFA_Basic_Amt" class="persist" type="text" placeholder="Enter name">
+      <label style="flex:1">Place of accident<input id="ClmMed_Accident_Place" class="persist" type="text" placeholder="Enter name">
       </label>
      </div>
 
     <div class="row">
-      <label style="flex:1">How did the accident happen?<textarea id="Complx_ReduceFA_Basic_Amt" class="persist" placeholder="Enter address"></textarea>
+      <label style="flex:1">How did the accident happen?<textarea id="ClmMed_Accident_How" class="persist" placeholder="Enter address"></textarea>
       </label>
      </div>
 
     <div class="row">
-      <label style="flex:1">Nature and extend of injury<textarea id="Complx_ReduceFA_Basic_Amt" class="persist" placeholder="Enter address"></textarea>
+      <label style="flex:1">Nature and extend of injury<textarea id="CClmMed_Accident_Injury" class="persist" placeholder="Enter address"></textarea>
       </label>
      </div>
 
@@ -510,9 +510,9 @@ label:has(.time-input-group)::first-line {
   </label>
     
       <div class="date-inputs">
-    <input id="UpdateOccupation_Day" class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
-    <input id="UpdateOccupation_Month" class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
-    <input id="UpdateOccupation_Year" class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Accident_AbsentDay" class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Accident_AbsentMonth" class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Accident_AbsentYear" class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
   </div>
 </div>
 
@@ -522,9 +522,9 @@ label:has(.time-input-group)::first-line {
   </label>
     
       <div class="date-inputs">
-    <input id="UpdateOccupation_Day" class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
-    <input id="UpdateOccupation_Month" class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
-    <input id="UpdateOccupation_Year" class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Accident_ReturnDay" class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Accident_ReturnMonth" class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Accident_ReturnYear" class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
   </div>
 </div>
 
@@ -554,7 +554,7 @@ label:has(.time-input-group)::first-line {
 </div>
 
           <div class="row">
-      <label style="flex:1">Name and Address of Doctor(s)<textarea id="Complx_ReduceFA_Basic_Amt" class="persist" placeholder="Enter address"></textarea>
+      <label style="flex:1">Name and Address of Doctor(s)<textarea id="ClmMed_Dr_First_NameAdd" class="persist" placeholder="Enter address"></textarea>
       </label>
      </div>
       
@@ -578,7 +578,7 @@ label:has(.time-input-group)::first-line {
 </div>
 
           <div class="row">
-      <label style="flex:1">Name and Address of Doctor(s)<textarea id="Complx_ReduceFA_Basic_Amt" class="persist" placeholder="Enter address"></textarea>
+      <label style="flex:1">Name and Address of Doctor(s)<textarea id="ClmMed_Dr_Others_NameAdd" class="persist" placeholder="Enter address"></textarea>
       </label>
      </div>
       
@@ -602,7 +602,7 @@ label:has(.time-input-group)::first-line {
 </div>
 
           <div class="row">
-      <label style="flex:1">Name and Address of Doctor(s)<textarea id="Complx_ReduceFA_Basic_Amt" class="persist" placeholder="Enter address"></textarea>
+      <label style="flex:1">Name and Address of Doctor(s)<textarea id="ClmMed_Dr_Regular_NameAdd" class="persist" placeholder="Enter address"></textarea>
       </label>
      </div>
       
@@ -626,7 +626,7 @@ label:has(.time-input-group)::first-line {
 </div>
 
           <div class="row">
-      <label style="flex:1">Name and Address of Doctor(s)<textarea id="Complx_ReduceFA_Basic_Amt" class="persist" placeholder="Enter address"></textarea>
+      <label style="flex:1">Name and Address of Doctor(s)<textarea id="ClmMed_Dr_5yrs_NameAdd" class="persist" placeholder="Enter address"></textarea>
       </label>
      </div>
     </section>
@@ -637,33 +637,33 @@ label:has(.time-input-group)::first-line {
   <h2>6. Particulars of BAnk Account for Claim Payment</h2>
 
    <div class="row">
-      <label style="flex:1">Account Holder Name<input id="Complx_ReduceFA_Basic_Amt" class="persist" type="text" placeholder="Enter name">
+      <label style="flex:1">Account Holder Name<input id="ClmMed_EBank_Name" class="persist" type="text" placeholder="Enter name">
       </label>
      </div>
 
       <div class="row">
       <label style="flex:1">New IC/Old IC/Passport No/Co. Registration No.
-(as per bank’s records)<input id="Complx_ReduceFA_Basic_Amt" class="persist" type="text" placeholder="Enter name">
+(as per bank’s records)<input id="ClmMed_EBank_NIRC" class="persist" type="text" placeholder="Enter name">
       </label>
      </div>
 
       <div class="row">
-      <label style="flex:1">Bank Account No.<input id="Complx_ReduceFA_Basic_Amt" class="persist" type="text" placeholder="Enter name">
+      <label style="flex:1">Bank Account No.<input id="ClmMed_EBank_AccNo" class="persist" type="text" placeholder="Enter name">
       </label>
      </div>
 
           <div class="row">
-      <label style="flex:1">Name of Bank<input id="Complx_ReduceFA_Basic_Amt" class="persist" type="text" placeholder="Enter name">
+      <label style="flex:1">Name of Bank<input id="ClmMed_EBank_Bank" class="persist" type="text" placeholder="Enter name">
       </label>
      </div>
 
     <div class="row">
     <label>Bank Account Type</label>  
     <div>
-        <label class="inline"><input id="account" class="persist"  name="Accounttype" type="radio">Conventional</label>
+        <label class="inline"><input id="ClmMed_EBank_Conventional" class="persist"  name="Accounttype" type="radio">Conventional</label>
       </div>
       <div>
-        <label class="inline"><input id="Simple_Payment_SemiAnnual" class="persist"  name="Accounttype" type="radio">Islamic</label>
+        <label class="inline"><input id="ClmMed_EBank_Islamic" class="persist"  name="Accounttype" type="radio">Islamic</label>
       </div>
     </div>
   </section>

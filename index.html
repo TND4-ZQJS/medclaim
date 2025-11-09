@@ -473,7 +473,7 @@ label:has(.time-input-group)::first-line {
 
     <div>
 <label>Time of accident
-  <div class="time-input-group">
+  <div class="time-input-group" data-field="ClmMed_Accident_Time">
     <input id="AppointmentTime_HH" class="persist time-input" placeholder="HH" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
     
     <span class="separator">:</span>
@@ -1040,6 +1040,45 @@ document.addEventListener("DOMContentLoaded", () => {
         const combined = [d, m, y].filter(Boolean).join("/");
         localStorage.setItem(fieldId, combined);
       });
+    });
+  });
+});
+
+/* ---------- Time Input Helper : Combine into ONE string  ---------- */
+document.addEventListener("DOMContentLoaded", () => {
+  const timeGroups = document.querySelectorAll(".time-group[data-field]");
+
+  timeGroups.forEach(group => {
+    const fieldId = group.dataset.field; // e.g. ClmMed_Accident_Time
+    const hourInput = group.querySelector('input[placeholder="HH"]');
+    const minuteInput = group.querySelector('input[placeholder="MM"]');
+    const ampmSelect = group.querySelector("select");
+
+    // --- Restore saved time ---
+    const saved = localStorage.getItem(fieldId);
+    if (saved) {
+      // Expect "HH:MM AM" or "HH:MM PM"
+      const [time, period] = saved.split(" ");
+      if (time) {
+        const [hh, mm] = time.split(":");
+        if (hourInput) hourInput.value = hh || "";
+        if (minuteInput) minuteInput.value = mm || "";
+      }
+      if (ampmSelect) ampmSelect.value = period || "";
+    }
+
+    // --- Save combined time on change ---
+    const saveTime = () => {
+      const hh = hourInput.value.trim().padStart(2, "0");
+      const mm = minuteInput.value.trim().padStart(2, "0");
+      const ampm = ampmSelect.value;
+      const combined = (hh || mm || ampm) ? `${hh}:${mm} ${ampm}`.trim() : "";
+      localStorage.setItem(fieldId, combined);
+    };
+
+    [hourInput, minuteInput, ampmSelect].forEach(el => {
+      el.addEventListener("input", saveTime);
+      el.addEventListener("change", saveTime);
     });
   });
 });

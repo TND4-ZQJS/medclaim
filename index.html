@@ -858,37 +858,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
 window.addEventListener("DOMContentLoaded", () => {
 
-    /* --- UNIVERSAL AUTO-TAB DATE LOGIC --- */
-    
-    // 1. Get ALL elements that have the 'date-input' class
-    const dateInputs = document.querySelectorAll('.date-input');
+  /* --- UNIVERSAL AUTO-TAB DATE LOGIC --- */
+  const dateGroups = document.querySelectorAll('.date-group'); // group-level control
 
-    // 2. Iterate through them and add the event listener
-    dateInputs.forEach((currentInput, index) => {
-        const maxLength = parseInt(currentInput.getAttribute('maxlength'), 10);
-        
-        // This input should only handle auto-tabbing if it has a max length
-        if (maxLength > 0) {
-            currentInput.addEventListener('input', (e) => {
-                // Sanitize input to numeric only
-                e.target.value = e.target.value.replace(/[^0-9]/g, '');
+  dateGroups.forEach(group => {
+    const inputs = group.querySelectorAll('.date-input');
 
-                // Check if the input is full AND there is a next element
-                if (e.target.value.length === maxLength) {
-                    const nextInput = dateInputs[index + 1];
+    inputs.forEach((currentInput, index) => {
+      const maxLength = parseInt(currentInput.getAttribute('maxlength'), 10);
 
-                    // Check if the next element is part of the sequence
-                    if (nextInput) {
-                        nextInput.focus();
-                        nextInput.select(); 
-                    }
-                }
-            });
-        }
+      if (maxLength > 0) {
+        currentInput.addEventListener('input', (e) => {
+          // allow only numbers
+          e.target.value = e.target.value.replace(/[^0-9]/g, '');
+
+          // if full and not the last field in this group
+          if (e.target.value.length === maxLength && index < inputs.length - 1) {
+            const nextInput = inputs[index + 1];
+            if (nextInput) {
+              nextInput.focus();
+              nextInput.select();
+            }
+          }
+        });
+      }
     });
+  });
 
-    /* --- END: Universal Auto-Tab Date Logic --- */
+  /* --- END: Universal Auto-Tab Date Logic --- */
 });
+
 
 // ---------- EXPORT FILTER LOGIC ----------
 function shouldIncludeFieldByUI(fieldId) {

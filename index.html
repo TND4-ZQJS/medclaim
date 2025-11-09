@@ -541,15 +541,15 @@ label:has(.time-input-group)::first-line {
       <label style="flex:1">First doctor consulted for this illness/disability</label>
       </div>
       
-      <div class="row date-group"> 
+      <div class="row date-group" data-combine="true" data-field="ClmMed_Dr_First_Date"> 
   <label class="date-label">First consultation date
     <span class="muted">(DD/MM/YYYY)</span>
   </label>
     
       <div class="date-inputs">
-    <input id="UpdateOccupation_Day" class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
-    <input id="UpdateOccupation_Month" class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
-    <input id="UpdateOccupation_Year" class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
+    <input class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
   </div>
 </div>
 
@@ -570,10 +570,10 @@ label:has(.time-input-group)::first-line {
     <span class="muted">(DD/MM/YYYY)</span>
   </label>
     
-      <div class="date-inputs">
-    <input id="UpdateOccupation_Day" class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
-    <input id="UpdateOccupation_Month" class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
-    <input id="UpdateOccupation_Year" class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
+      <div class="date-inputs" data-combine="true" data-field="ClmMed_Dr_Others_Date">
+    <input class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
   </div>
 </div>
 
@@ -589,7 +589,7 @@ label:has(.time-input-group)::first-line {
       <label style="flex:1">Regular doctors/ gynaecologist/ obstetrician</label>
       </div>
       
-      <div class="row date-group"> 
+      <div class="row date-group" data-combine="true" data-field="ClmMed_Dr_Regular_Date"> 
   <label class="date-label">First consultation date
     <span class="muted">(DD/MM/YYYY)</span>
   </label>
@@ -609,7 +609,7 @@ label:has(.time-input-group)::first-line {
     </section>
 
     <section class="section">
-      <div class="row">
+      <div class="row" data-combine="true" data-field="ClmMed_Dr_5yrs_Date">
       <label style="flex:1">All other doctors consulted in the past five (5) years</label>
       </div>
       
@@ -1014,6 +1014,35 @@ function safeSetField(form, fieldName, value) {
     console.error(`Error setting field ${fieldName}`, err);
   }
 }
+
+/* ---------- Date Input Helper : Combine into ONE string  ---------- */
+document.addEventListener("DOMContentLoaded", () => {
+  // Target only date groups that have data-combine="true"
+  const combinedGroups = document.querySelectorAll('.date-group[data-combine="true"]');
+
+  combinedGroups.forEach(group => {
+    const fieldId = group.dataset.field; // e.g. ClmMed_Dr_First_Date
+    const inputs = group.querySelectorAll(".date-input");
+
+    // Restore saved combined date
+    const saved = localStorage.getItem(fieldId);
+    if (saved) {
+      const [d, m, y] = saved.split("/");
+      if (inputs[0]) inputs[0].value = d || "";
+      if (inputs[1]) inputs[1].value = m || "";
+      if (inputs[2]) inputs[2].value = y || "";
+    }
+
+    // Save combined value on any input change
+    inputs.forEach(input => {
+      input.addEventListener("input", () => {
+        const [d, m, y] = Array.from(inputs).map(i => i.value.trim());
+        const combined = [d, m, y].filter(Boolean).join("/");
+        localStorage.setItem(fieldId, combined);
+      });
+    });
+  });
+});
 
 
 /* ---------- SIGNATURE MODAL LOGIC (Owner + Payor) with HiDPI scaling ---------- */

@@ -931,6 +931,26 @@ function shouldIncludeFieldByUI(fieldId) {
   return true;
 }
 
+/* ---------- ENFORCE TRUE RADIO BEHAVIOR ---------- */
+document.querySelectorAll("input.bank-type").forEach(el => {
+  el.addEventListener("change", () => {
+    // ensure only one is active
+    const conventional = $("ClmMed_EBank_Conventional");
+    const islamic = $("ClmMed_EBank_Islamic");
+
+    if (el.id === "ClmMed_EBank_Conventional") {
+      islamic.checked = false;
+    } else {
+      conventional.checked = false;
+    }
+
+    // sync to localStorage manually (radio groups need special handling)
+    if (el.checked) {
+      localStorage.setItem("Accounttype", el.id); // store the ID
+    }
+  });
+});
+
 
 /* --- SAVE STATUS + LOCALSTORAGE (Text, Checkbox, Dropdown) ---------- */
 const saveStatusEl = document.getElementById("saveStatus");
@@ -1256,7 +1276,14 @@ window.addEventListener("DOMContentLoaded", ()=>{
     if(saved){ $("preview_simple_"+role).innerHTML = `<img alt="Signature ${role}" src="${saved}">`; }
   });
 });
-  
+
+
+/* ---------- RESTORE SAVED BANK TYPE SELECTION ---------- */
+const savedType = localStorage.getItem("Accounttype");
+if (savedType) {
+  const el = document.getElementById(savedType);
+  if (el) el.checked = true;
+}
 
 /* ---------- GENERATE PDF ---------- */
 async function fillPDF(){
@@ -1349,8 +1376,6 @@ const fieldNames = [
   "ClmMed_EBank_NIRC",
   "ClmMed_EBank_AccNo",
   "ClmMed_EBank_Bank",
-  "ClmMed_EBank_Conventional",
-  "ClmMed_EBank_Islamic",
   "ClmMed_Sign_Witness_Name",
   "ClmMed_Sign_Witness_NIRC",
   "ClmMed_Sign_Witness_Date",
@@ -1370,24 +1395,25 @@ fieldNames.forEach(fieldName => {
   safeSetField(form, fieldName, value);
 });
 
-// Handles Radio Button Group
-  function writeBankAccountType(form) {
-    const conventional = document.getElementById("ClmMed_EBank_Conventional").checked;
-    const islamic = document.getElementById("ClmMed_EBank_Islamic").checked;
+/* ---------- WRITE BANK ACCOUNT TYPE TO PDF CHECKBOXES ---------- */
+function writeBankAccountType(form) {
+  const selected = localStorage.getItem("Accounttype"); // ID stored
 
-    // Write to PDF — field name SAME as HTML id
-    if (conventional) {
-        form.getCheckBox("ClmMed_EBank_Conventional").check();
-    } else {
-        form.getCheckBox("ClmMed_EBank_Conventional").uncheck();
-    }
+  const conventional = (selected === "ClmMed_EBank_Conventional");
+  const islamic = (selected === "ClmMed_EBank_Islamic");
 
-    if (islamic) {
-        form.getCheckBox("ClmMed_EBank_Islamic").check();
-    } else {
-        form.getCheckBox("ClmMed_EBank_Islamic").uncheck();
-    }
+  try {
+    const conv = form.getCheckBox("ClmMed_EBank_Conventional");
+    const isl  = form.getCheckBox("ClmMed_EBank_Islamic");
+
+    if (conventional) conv.check(); else conv.uncheck();
+    if (islamic) isl.check(); else isl.uncheck();
+  } catch (e) {
+    console.error("Error writing bank type:", e);
+  }
 }
+
+writeBankAccountType(form);
     
     /* --------- SIGNATURE IMAGE EMBEDDING (embedPng + drawImage) --------- */
 

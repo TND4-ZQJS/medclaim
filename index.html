@@ -1369,6 +1369,25 @@ fieldNames.forEach(fieldName => {
   const value = localStorage.getItem(fieldName);
   safeSetField(form, fieldName, value);
 });
+
+// Handles Radio Button Group
+  function writeBankAccountType(form) {
+    const conventional = document.getElementById("ClmMed_EBank_Conventional").checked;
+    const islamic = document.getElementById("ClmMed_EBank_Islamic").checked;
+
+    // Write to PDF — field name SAME as HTML id
+    if (conventional) {
+        form.getCheckBox("ClmMed_EBank_Conventional").check();
+    } else {
+        form.getCheckBox("ClmMed_EBank_Conventional").uncheck();
+    }
+
+    if (islamic) {
+        form.getCheckBox("ClmMed_EBank_Islamic").check();
+    } else {
+        form.getCheckBox("ClmMed_EBank_Islamic").uncheck();
+    }
+}
     
     /* --------- SIGNATURE IMAGE EMBEDDING (embedPng + drawImage) --------- */
 

@@ -100,16 +100,14 @@
 
 /* Label should not stretch */
 .date-group .date-label {
-  flex: 1 1 auto;
-  margin: 0 6px 0 0;
+  flex: 0 0 auto;
+  margin: 0;
+  margin-right: 6px;
   font-weight: 500;
   color: #333;
   text-align: left;
-  white-space: normal; /* ✅ Allow wrapping */
-  word-break: break-word;
-  line-height: 1.4;
+  white-space: nowrap;
 }
-
 
 /* Container for inputs: left-aligned */
 .date-group .date-inputs {
@@ -456,7 +454,7 @@ label:has(.time-input-group)::first-line {
 </div>
 
         <div class="row">
-      <label style="flex:1"><input id="CB_Accident" class="persist" type="checkbox">This is due to Accident
+      <label style="flex:1"><input id="CB_PO" class="persist" type="checkbox">This is due to Accident
       </label>
     </div>
 
@@ -827,7 +825,7 @@ const PDF_FILENAME = "Medical and Accident Claim_Claimant's Statement_LF5191_202
 // ---------- SECTION CONTROL CONFIG ----------
 const CONTROLLER_BY_SECTION = {
   Policyownerinfo: "CB_PO",
-  accidentsection: "CB_Accident",
+
 };
 
 // ---------- UI ENABLE/DISABLE TOGGLE ----------

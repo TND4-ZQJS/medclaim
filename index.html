@@ -98,15 +98,15 @@
   flex-wrap: nowrap;
 }
 
-/* Label closer to input boxes */
+/* Label should not stretch */
 .date-group .date-label {
   flex: 0 0 auto;
   margin: 0;
-  margin-right: 3px;   /* tighter spacing */
+  margin-right: 3px;      /* closer to input */
   font-weight: 500;
   color: #333;
   text-align: left;
-  white-space: nowrap;
+  white-space: nowrap;     /* desktop only */
 }
 
 /* Container for inputs */
@@ -114,7 +114,7 @@
   display: flex;
   flex-grow: 0;
   justify-content: flex-start;
-  gap: 6px;
+  gap: 4px;                /* tighter spacing */
 }
 
 /* Compact input fields */
@@ -136,12 +136,13 @@
 
   .row.date-group {
     flex-wrap: wrap;
+    row-gap: 2px;               /* reduce vertical spacing */
   }
 
-  /* Make label closer to inputs on mobile */
   .date-group .date-label {
     width: 100%;
-    margin-bottom: 2px;  /* was 4px */
+    white-space: normal !important;  /* FIX overflow */
+    margin-bottom: 2px;              /* closer to inputs */
   }
 
   .date-group .date-inputs {

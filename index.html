@@ -90,31 +90,36 @@
 }
 
 
-/* ---------- FIX DATE GROUP LAYOUT ---------- */
+/* ---------- FIX DATE GROUP LAYOUT (IMPROVED FOR WRAPPING) ---------- */
 .row.date-group {
-  justify-content: flex-start !important; /* Force left alignment */
+  justify-content: flex-start !important;
   align-items: center;
   gap: 8px;
-  flex-wrap: nowrap;
+  flex-wrap: nowrap; /* keep one row on desktop where possible */
 }
 
-/* Label should not stretch */
+/* Label: allow wrapping but keep a reasonable flex-basis on desktop */
 .date-group .date-label {
-  flex: 0 0 auto;
-  margin: 0;
-  margin-right: 6px;
+  /* allow the label to grow/shrink but start at ~240px - adjust as needed */
+  flex: 0 1 240px;      /* flex-grow:0, flex-shrink:1, flex-basis:240px */
+  min-width: 0;         /* <-- critical: allows the label to shrink */
+  margin: 0 6px 0 0;
   font-weight: 500;
   color: #333;
   text-align: left;
-  white-space: nowrap;
+  white-space: normal;  /* allow wrapping now (was nowrap) */
+  overflow-wrap: anywhere; /* break long words if needed */
+  hyphens: auto;
+  line-height: 1.2;
 }
 
 /* Container for inputs: left-aligned */
 .date-group .date-inputs {
   display: flex;
   flex-grow: 0;
-  justify-content: flex-start;
+  flex-shrink: 0;       /* inputs keep their intended width */
   gap: 6px;
+  min-width: 0;         /* <-- critical: lets inputs shrink within flex container */
 }
 
 /* Compact input fields */
@@ -125,13 +130,12 @@
   border: 1px solid #ddd;
   border-radius: 10px; /* same as main form inputs */
   background: #fff;
-  font-size: 1rem; /* consistent text size */
+  font-size: 1rem;
   line-height: 1.2;
   box-sizing: border-box;
 }
 
-
-/* For mobile screens */
+/* For mobile screens: stack label above inputs (unchanged behavior) */
 @media (max-width: 600px) {
   .row.date-group {
     flex-wrap: wrap;
@@ -139,9 +143,12 @@
   .date-group .date-label {
     width: 100%;
     margin-bottom: 4px;
+    /* For mobile keep full width and readable wrapping */
+    flex: 0 1 100%;
   }
   .date-group .date-inputs {
     width: 100%;
+    justify-content: flex-start;
   }
 }
 

@@ -90,65 +90,62 @@
 }
 
 
-/* ---------- FIX DATE GROUP LAYOUT (IMPROVED FOR WRAPPING) ---------- */
+/* ---------- FIX DATE GROUP LAYOUT ---------- */
 .row.date-group {
   justify-content: flex-start !important;
   align-items: center;
   gap: 8px;
-  flex-wrap: nowrap; /* keep one row on desktop where possible */
+  flex-wrap: nowrap;
 }
 
-/* Label: allow wrapping but keep a reasonable flex-basis on desktop */
+/* Label closer to input boxes */
 .date-group .date-label {
-  /* allow the label to grow/shrink but start at ~240px - adjust as needed */
-  flex: 0 1 240px;      /* flex-grow:0, flex-shrink:1, flex-basis:240px */
-  min-width: 0;         /* <-- critical: allows the label to shrink */
-  margin: 0 6px 0 0;
+  flex: 0 0 auto;
+  margin: 0;
+  margin-right: 3px;   /* tighter spacing */
   font-weight: 500;
   color: #333;
   text-align: left;
-  white-space: normal;  /* allow wrapping now (was nowrap) */
-  overflow-wrap: anywhere; /* break long words if needed */
-  hyphens: auto;
-  line-height: 1.2;
+  white-space: nowrap;
 }
 
-/* Container for inputs: left-aligned */
+/* Container for inputs */
 .date-group .date-inputs {
   display: flex;
   flex-grow: 0;
-  flex-shrink: 0;       /* inputs keep their intended width */
+  justify-content: flex-start;
   gap: 6px;
-  min-width: 0;         /* <-- critical: lets inputs shrink within flex container */
 }
 
 /* Compact input fields */
 .date-group .date-inputs input {
   width: 3.8em;
   text-align: center;
-  padding: 9px 0; /* match global input height */
+  padding: 9px 0;
   border: 1px solid #ddd;
-  border-radius: 10px; /* same as main form inputs */
+  border-radius: 10px;
   background: #fff;
   font-size: 1rem;
   line-height: 1.2;
   box-sizing: border-box;
 }
 
-/* For mobile screens: stack label above inputs (unchanged behavior) */
+
+/* ---------- MOBILE FIXES ---------- */
 @media (max-width: 600px) {
+
   .row.date-group {
     flex-wrap: wrap;
   }
+
+  /* Make label closer to inputs on mobile */
   .date-group .date-label {
     width: 100%;
-    margin-bottom: 4px;
-    /* For mobile keep full width and readable wrapping */
-    flex: 0 1 100%;
+    margin-bottom: 2px;  /* was 4px */
   }
+
   .date-group .date-inputs {
     width: 100%;
-    justify-content: flex-start;
   }
 }
 

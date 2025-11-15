@@ -573,17 +573,16 @@ label:has(.time-input-group)::first-line {
       <label style="flex:1">All other doctors consulted for this illness/disability</label>
       </div>
       
-      <div class="row date-group"> 
+    <div class="row date-group" data-combine="true" data-field="ClmMed_Dr_Others_Date"> 
   <label class="date-label">First consultation date
     <span class="muted">(DD/MM/YYYY)</span>
   </label>
     
-      <div class="date-inputs" data-combine="true" data-field="ClmMed_Dr_Others_Date">
+      <div class="date-inputs">
     <input class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
     <input class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
     <input class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
   </div>
-</div>
 
           <div class="row">
       <label style="flex:1">Name and Address of Doctor(s)<textarea id="ClmMed_Dr_Others_NameAdd" class="persist" placeholder="Enter address"></textarea>
@@ -617,21 +616,20 @@ label:has(.time-input-group)::first-line {
     </section>
 
     <section class="section">
-      <div class="row" data-combine="true" data-field="ClmMed_Dr_5yrs_Date">
+      <div class="row"> 
       <label style="flex:1">All other doctors consulted in the past five (5) years</label>
       </div>
       
-      <div class="row date-group"> 
+    <div class="row date-group" data-combine="true" data-field="ClmMed_5yrs_Date"> 
   <label class="date-label">First consultation date
     <span class="muted">(DD/MM/YYYY)</span>
   </label>
     
       <div class="date-inputs">
-    <input id="UpdateOccupation_Day" class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
-    <input id="UpdateOccupation_Month" class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
-    <input id="UpdateOccupation_Year" class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
+    <input class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
   </div>
-</div>
 
           <div class="row">
       <label style="flex:1">Name and Address of Doctor(s)<textarea id="ClmMed_Dr_5yrs_NameAdd" class="persist" placeholder="Enter address"></textarea>
@@ -692,6 +690,19 @@ label:has(.time-input-group)::first-line {
         <input id="Complx_Sign_PO_NIRC" class="persist" type="text" placeholder="e.g. 900101-14-1234">
     </label>
     </div>
+
+         <div class="row date-group" data-combine="true" data-field="ClmMed_Sign_PO_Date"> 
+  <label class="date-label">Date signed
+    <span class="muted">(DD/MM/YYYY)</span>
+  </label>
+    
+      <div class="date-inputs">
+    <input class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
+  </div>
+</div>
+    
     <div class="row">
     <label style="flex:1">Relationship with Insured Person
         <input id="Complx_Sign_PO_NIRC" class="persist" type="text" placeholder="e.g. 900101-14-1234">

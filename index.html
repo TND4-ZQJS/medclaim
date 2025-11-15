@@ -714,17 +714,29 @@ label:has(.time-input-group)::first-line {
     <h2>Signature of Witness</h2>
     <div class="row">
       <label style="flex:1">Name of Witness
-        <input id="Complx_Sign_Witness_Name" class="persist" type="text" placeholder="Enter name">
+        <input id="ClmMed_Sign_Witness_Name" class="persist" type="text" placeholder="Enter name">
       </label>
     </div>
     <div class="row">
       <label style="flex:1">IC No.
-        <input id="Complx_Sign_Witness_NIRC" class="persist" type="text" placeholder="e.g. 800202-08-5678">
+        <input id="ClmMed_Sign_Witness_NIRC" class="persist" type="text" placeholder="e.g. 800202-08-5678">
       </label>
       <label style="flex:1">Mobile No.
-        <input id="Complx_Sign_Witness_Mobile" class="persist" type="text" placeholder="e.g. 012-23456789">
+        <input id="ClmMed_Sign_Witness_Mobile" class="persist" type="text" placeholder="e.g. 012-23456789">
       </label>
     </div>
+
+          <div class="row date-group"> 
+  <label class="date-label">Date
+    <span class="muted">(DD/MM/YYYY)</span>
+  </label>
+    
+      <div class="date-inputs" data-combine="true" data-field="ClmMed_Sign_Witness_Date">
+    <input class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
+  </div>
+</div>
 
     <div class="sig-preview" id="preview_simple_witness" onclick="openSig('simple_witness')">
       <span>Tap to Sign (Witness)</span>

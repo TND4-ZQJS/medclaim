@@ -1096,24 +1096,6 @@ function autoLinkPersonFields(config) {
 }
 
 
-autoLinkPersonFields({
-  trigger: "CB_PO",
-  sourceA: { // when SAME PERSON (checkbox unchecked)
-    name: "ClmMed_Insuredinfo_Name",
-    nric: "ClmMed_Insuredinfo_NIRC"
-  },
-  sourceB: { // when DIFFERENT PERSON (checkbox checked)
-    name: "ClmMed_POinfo_Name",
-    nric: "ClmMed_POinfo_NIRC"
-  },
-  target: { // autofill target
-    name: "ClmMed_EBank_Name",
-    nric: "ClmMed_EBank_NIRC"
-  },
-  alwaysReadOnly: true // Option A1
-});
-
-
 /* ---------- UNIVERSAL HELPER FUNCTION ---------- */
 
   //Detect input type - text/dropdown/checkbox/radio
@@ -1375,6 +1357,30 @@ window.addEventListener("DOMContentLoaded", ()=>{
     const saved = localStorage.getItem("sig_simple_"+role);
     if(saved){ $("preview_simple_"+role).innerHTML = `<img alt="Signature ${role}" src="${saved}">`; }
   });
+});
+
+
+/* ---------- FINAL: RUN AUTO-LINK AFTER autoBindSave RESTORES VALUES ---------- */
+window.addEventListener("DOMContentLoaded", () => {
+  // Wait 50ms to allow autoBindSave() to finish restoring ALL persist fields
+  setTimeout(() => {
+    autoLinkPersonFields({
+      trigger: "CB_PO",
+      sourceA: { // Insured
+        name: "ClmMed_Insuredinfo_Name",
+        nric: "ClmMed_Insuredinfo_NIRC"
+      },
+      sourceB: { // Policy Owner
+        name: "ClmMed_POinfo_Name",
+        nric: "ClmMed_POinfo_NIRC"
+      },
+      target: { // Bank fields
+        name: "ClmMed_EBank_Name",
+        nric: "ClmMed_EBank_NIRC"
+      },
+      alwaysReadOnly: true
+    });
+  }, 50);
 });
 
 

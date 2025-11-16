@@ -92,6 +92,13 @@
   opacity: 1;
 }
 
+/* --------LINK PERSON--------- */
+input[readonly] {
+  background: #f2f2f2;
+  color: #555;
+  cursor: not-allowed;
+}
+
 
 /* ---------- FIX DATE GROUP LAYOUT ---------- */
 .row.date-group {
@@ -1013,8 +1020,90 @@ function autoBindSave(el) {
   }
 }
 
+/* ---------- UNIVERSAL AUTO-LINK PERSON HELPER---------- */
+function autoLinkPersonFields(config) {
+  const {
+    trigger,        // checkbox ID
+    sourceA,        // same-person source (eg: insured)
+    sourceB,        // different-person source (eg: policy owner)
+    target,         // target fields to autofill
+    alwaysReadOnly  // boolean
+  } = config;
 
-  
+  function applyLinking() {
+    const cb = document.getElementById(trigger);
+
+    // get source A values
+    const aName = document.getElementById(sourceA.name)?.value || "";
+    const aNric = document.getElementById(sourceA.nric)?.value || "";
+
+    // get source B values
+    const bName = document.getElementById(sourceB.name)?.value || "";
+    const bNric = document.getElementById(sourceB.nric)?.value || "";
+
+    // get target fields
+    const tgtName = document.getElementById(target.name);
+    const tgtNric = document.getElementById(target.nric);
+
+    if (!tgtName || !tgtNric) return;
+
+    // If checkbox = checked → use sourceB
+    if (cb?.checked) {
+      tgtName.value = bName;
+      tgtNric.value = bNric;
+    } else {
+      // otherwise use sourceA
+      tgtName.value = aName;
+      tgtNric.value = aNric;
+    }
+
+    // Save
+    localStorage.setItem(target.name, tgtName.value);
+    localStorage.setItem(target.nric, tgtNric.value);
+
+    // Read-only state
+    if (alwaysReadOnly) {
+      tgtName.readOnly = true;
+      tgtNric.readOnly = true;
+    }
+
+    if (typeof showSaveStatus === "function") {
+      showSaveStatus();
+    }
+  }
+
+  // Bind triggers
+  document.getElementById(trigger)?.addEventListener("change", applyLinking);
+
+  [sourceA.name, sourceA.nric, sourceB.name, sourceB.nric].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener("input", applyLinking);
+    }
+  });
+
+  // run once on load
+  applyLinking();
+}
+
+autoLinkPersonFields({
+  trigger: "CB_PO",
+  sourceA: { // when SAME PERSON (checkbox unchecked)
+    name: "ClmMed_Insuredinfo_Name",
+    nric: "ClmMed_Insuredinfo_NIRC"
+  },
+  sourceB: { // when DIFFERENT PERSON (checkbox checked)
+    name: "ClmMed_POinfo_Name",
+    nric: "ClmMed_POinfo_NIRC"
+  },
+  target: { // autofill target
+    name: "ClmMed_EBank_Name",
+    nric: "ClmMed_EBank_NIRC"
+  },
+  alwaysReadOnly: true // Option A1
+});
+
+
 /* ---------- UNIVERSAL HELPER FUNCTION ---------- */
 
   //Detect input type - text/dropdown/checkbox/radio

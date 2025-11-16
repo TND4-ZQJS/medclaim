@@ -1023,68 +1023,78 @@ function autoBindSave(el) {
 /* ---------- UNIVERSAL AUTO-LINK PERSON HELPER---------- */
 function autoLinkPersonFields(config) {
   const {
-    trigger,        // checkbox ID
-    sourceA,        // same-person source (eg: insured)
-    sourceB,        // different-person source (eg: policy owner)
-    target,         // target fields to autofill
-    alwaysReadOnly  // boolean
+    trigger,
+    sourceA,
+    sourceB,
+    target,
+    alwaysReadOnly
   } = config;
 
-  function applyLinking() {
-    const cb = document.getElementById(trigger);
-
-    // get source A values
-    const aName = document.getElementById(sourceA.name)?.value || "";
-    const aNric = document.getElementById(sourceA.nric)?.value || "";
-
-    // get source B values
-    const bName = document.getElementById(sourceB.name)?.value || "";
-    const bNric = document.getElementById(sourceB.nric)?.value || "";
-
-    // get target fields
+  // Restore saved target values on page load
+  function restoreTarget() {
     const tgtName = document.getElementById(target.name);
     const tgtNric = document.getElementById(target.nric);
 
     if (!tgtName || !tgtNric) return;
 
-    // If checkbox = checked → use sourceB
+    const savedName = localStorage.getItem(target.name);
+    const savedNric = localStorage.getItem(target.nric);
+
+    if (savedName !== null) tgtName.value = savedName;
+    if (savedNric !== null) tgtNric.value = savedNric;
+
+    tgtName.readOnly = alwaysReadOnly;
+    tgtNric.readOnly = alwaysReadOnly;
+  }
+
+  function applyLinking() {
+    const cb = document.getElementById(trigger);
+
+    const aName = document.getElementById(sourceA.name)?.value || "";
+    const aNric = document.getElementById(sourceA.nric)?.value || "";
+
+    const bName = document.getElementById(sourceB.name)?.value || "";
+    const bNric = document.getElementById(sourceB.nric)?.value || "";
+
+    const tgtName = document.getElementById(target.name);
+    const tgtNric = document.getElementById(target.nric);
+
+    if (!tgtName || !tgtNric) return;
+
     if (cb?.checked) {
       tgtName.value = bName;
       tgtNric.value = bNric;
     } else {
-      // otherwise use sourceA
       tgtName.value = aName;
       tgtNric.value = aNric;
     }
 
-    // Save
     localStorage.setItem(target.name, tgtName.value);
     localStorage.setItem(target.nric, tgtNric.value);
 
-    // Read-only state
     if (alwaysReadOnly) {
       tgtName.readOnly = true;
       tgtNric.readOnly = true;
     }
 
-    if (typeof showSaveStatus === "function") {
-      showSaveStatus();
-    }
+    if (typeof showSaveStatus === "function") showSaveStatus();
   }
 
-  // Bind triggers
+  // Bind events
   document.getElementById(trigger)?.addEventListener("change", applyLinking);
 
   [sourceA.name, sourceA.nric, sourceB.name, sourceB.nric].forEach(id => {
     const el = document.getElementById(id);
-    if (el) {
-      el.addEventListener("input", applyLinking);
-    }
+    if (el) el.addEventListener("input", applyLinking);
   });
 
-  // run once on load
+  // Restore saved values first
+  restoreTarget();
+
+  // Then apply linking logic
   applyLinking();
 }
+
 
 autoLinkPersonFields({
   trigger: "CB_PO",

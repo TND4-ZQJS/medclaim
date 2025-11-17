@@ -1022,76 +1022,74 @@ function autoBindSave(el) {
 
 /* ---------- UNIVERSAL AUTO-LINK PERSON HELPER---------- */
 function autoLinkPersonFields(config) {
-  const {
-    trigger,
-    sourceA,
-    sourceB,
-    target,
-    alwaysReadOnly
-  } = config;
+  const { trigger, sourceA, sourceB, targets, alwaysReadOnly } = config;
 
-  // Restore saved target values on page load
-  function restoreTarget() {
-    const tgtName = document.getElementById(target.name);
-    const tgtNric = document.getElementById(target.nric);
-
-    if (!tgtName || !tgtNric) return;
-
-    const savedName = localStorage.getItem(target.name);
-    const savedNric = localStorage.getItem(target.nric);
-
-    if (savedName !== null) tgtName.value = savedName;
-    if (savedNric !== null) tgtNric.value = savedNric;
-
-    tgtName.readOnly = alwaysReadOnly;
-    tgtNric.readOnly = alwaysReadOnly;
+  function restoreTargets() {
+    targets.forEach(t => {
+      ["name", "nric", "mobile"].forEach(key => {
+        if (!t[key]) return;
+        const el = document.getElementById(t[key]);
+        const saved = localStorage.getItem(t[key]);
+        if (el && saved !== null) el.value = saved;
+        if (alwaysReadOnly && el) el.readOnly = true;
+      });
+    });
   }
 
   function applyLinking() {
-    const cb = document.getElementById(trigger);
+    const cb = trigger ? document.getElementById(trigger) : null;
 
-    const aName = document.getElementById(sourceA.name)?.value || "";
-    const aNric = document.getElementById(sourceA.nric)?.value || "";
+    const src = cb?.checked ? sourceB : sourceA;
 
-    const bName = document.getElementById(sourceB.name)?.value || "";
-    const bNric = document.getElementById(sourceB.nric)?.value || "";
+    const srcName  = document.getElementById(src.name)?.value || "";
+    const srcNric  = document.getElementById(src.nric)?.value || "";
+    const srcMobile = src.mobile ? (document.getElementById(src.mobile)?.value || "") : "";
 
-    const tgtName = document.getElementById(target.name);
-    const tgtNric = document.getElementById(target.nric);
+    targets.forEach(t => {
+      if (t.name) {
+        const el = document.getElementById(t.name);
+        if (el) {
+          el.value = srcName;
+          localStorage.setItem(t.name, srcName);
+          if (alwaysReadOnly) el.readOnly = true;
+        }
+      }
 
-    if (!tgtName || !tgtNric) return;
+      if (t.nric) {
+        const el = document.getElementById(t.nric);
+        if (el) {
+          el.value = srcNric;
+          localStorage.setItem(t.nric, srcNric);
+          if (alwaysReadOnly) el.readOnly = true;
+        }
+      }
 
-    if (cb?.checked) {
-      tgtName.value = bName;
-      tgtNric.value = bNric;
-    } else {
-      tgtName.value = aName;
-      tgtNric.value = aNric;
-    }
-
-    localStorage.setItem(target.name, tgtName.value);
-    localStorage.setItem(target.nric, tgtNric.value);
-
-    if (alwaysReadOnly) {
-      tgtName.readOnly = true;
-      tgtNric.readOnly = true;
-    }
+      if (t.mobile) {
+        const el = document.getElementById(t.mobile);
+        if (el) {
+          el.value = srcMobile;
+          localStorage.setItem(t.mobile, srcMobile);
+          if (alwaysReadOnly) el.readOnly = true;
+        }
+      }
+    });
 
     if (typeof showSaveStatus === "function") showSaveStatus();
   }
 
-  // Bind events
-  document.getElementById(trigger)?.addEventListener("change", applyLinking);
+  if (trigger)
+    document.getElementById(trigger)?.addEventListener("change", applyLinking);
 
-  [sourceA.name, sourceA.nric, sourceB.name, sourceB.nric].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.addEventListener("input", applyLinking);
+  // Bind source fields
+  [sourceA, sourceB].forEach(src => {
+    ["name", "nric", "mobile"].forEach(key => {
+      if (!src[key]) return;
+      const el = document.getElementById(src[key]);
+      if (el) el.addEventListener("input", applyLinking);
+    });
   });
 
-  // Restore saved values first
-  restoreTarget();
-
-  // Then apply linking logic
+  restoreTargets();
   applyLinking();
 }
 
@@ -1366,22 +1364,36 @@ window.addEventListener("DOMContentLoaded", () => {
   setTimeout(() => {
     autoLinkPersonFields({
       trigger: "CB_PO",
+
       sourceA: { // Insured
         name: "ClmMed_Insuredinfo_Name",
-        nric: "ClmMed_Insuredinfo_NIRC"
+        nric: "ClmMed_Insuredinfo_NIRC",
+        mobile: "ClmMed_Insuredinfo_Mobile"   // NEW
       },
+
       sourceB: { // Policy Owner
         name: "ClmMed_POinfo_Name",
-        nric: "ClmMed_POinfo_NIRC"
+        nric: "ClmMed_POinfo_NIRC",
+        mobile: "ClmMed_POinfo_Mobile"       // NEW
       },
-      target: { // Bank fields
-        name: "ClmMed_EBank_Name",
-        nric: "ClmMed_EBank_NIRC"
-      },
+
+      targets: [
+        { // Bank Section
+          name: "ClmMed_EBank_Name",
+          nric: "ClmMed_EBank_NIRC",
+        },
+        { // Signature Section
+          name: "ClmMed_Sign_PO_Name",
+          nric: "ClmMed_Sign_PO_NRIC",
+          mobile: "ClmMed_Sign_Relationship_Mobile"
+        }
+      ],
+
       alwaysReadOnly: true
     });
   }, 50);
 });
+
 
 
 /* ---------- RESTORE SAVED BANK TYPE SELECTION ---------- */

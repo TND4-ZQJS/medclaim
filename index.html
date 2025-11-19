@@ -1071,8 +1071,20 @@ function autoLinkPersonFields(config) {
   }
 
   function applyLinking() {
-    const cb = trigger ? document.getElementById(trigger) : null;
-    const src = cb?.checked ? sourceB : sourceA;
+let cbChecked = false;
+const cb = trigger ? document.getElementById(trigger) : null;
+
+// read from localStorage first
+const saved = localStorage.getItem(trigger);
+if (saved !== null) {
+    cbChecked = (saved === "true");
+} else {
+    cbChecked = cb?.checked;
+}
+
+const src = cbChecked ? sourceB : sourceA;
+
+
 
     const srcName   = src?.name ? (document.getElementById(src.name)?.value || "") : "";
     const srcNirc   = src?.nirc ? (document.getElementById(src.nirc)?.value || "") : "";

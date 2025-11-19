@@ -235,6 +235,29 @@ label:has(.time-input-group)::first-line {
   }
 }
 
+  .fastfill-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.fastfill-label {
+  font-weight: 600;
+  color: #333;
+  white-space: nowrap;
+}
+
+.fastfill-select {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+  background-color: #fff;
+}
+
+
   /* Signature preview tiles */
   .sig-preview{
     width:100%; height:150px; border:1px dashed #bbb; border-radius:10px;
@@ -688,6 +711,14 @@ label:has(.time-input-group)::first-line {
   <section class="section">
     <h2>Signature of Insured Person/Policyowner/Claimant</h2>
     <div class="row">
+      <!-- Fast Fill (add near Signature section) -->
+<div class="fastfill-wrapper">
+  <label class="fastfill-label" for="FastFill_Selector">Fast Fill</label>
+  <select id="FastFill_Selector" class="fastfill-select">
+    <option value="">-- Select --</option>
+  </select>
+</div></div>
+    <div class="row">
       <label style="flex:1">Name of Insured Person/Policyowner/Claimant
         <input id="ClmMed_Sign_PO_Name" class="persist" type="text" placeholder="Enter name">
       </label>
@@ -1020,9 +1051,12 @@ function autoBindSave(el) {
   }
 }
 
-/* ---------- UNIVERSAL AUTO-LINK PERSON HELPER---------- */
+/* ===========================
+   Upgraded autoLinkPersonFields
+   Supports: multiple targets + mobile + restore + readonly
+   =========================== */
 function autoLinkPersonFields(config) {
-  const { trigger, sourceA, sourceB, targets, alwaysReadOnly } = config;
+  const { trigger, sourceA, sourceB, targets = [], alwaysReadOnly } = config;
 
   function restoreTargets() {
     targets.forEach(t => {
@@ -1038,19 +1072,18 @@ function autoLinkPersonFields(config) {
 
   function applyLinking() {
     const cb = trigger ? document.getElementById(trigger) : null;
-
     const src = cb?.checked ? sourceB : sourceA;
 
-    const srcName  = document.getElementById(src.name)?.value || "";
-    const srcNric  = document.getElementById(src.nric)?.value || "";
-    const srcMobile = src.mobile ? (document.getElementById(src.mobile)?.value || "") : "";
+    const srcName   = src?.name ? (document.getElementById(src.name)?.value || "") : "";
+    const srcNric   = src?.nric ? (document.getElementById(src.nric)?.value || "") : "";
+    const srcMobile = src?.mobile ? (document.getElementById(src.mobile)?.value || "") : "";
 
     targets.forEach(t => {
       if (t.name) {
         const el = document.getElementById(t.name);
         if (el) {
           el.value = srcName;
-          localStorage.setItem(t.name, srcName);
+          localStorage.setItem(t.name, el.value);
           if (alwaysReadOnly) el.readOnly = true;
         }
       }
@@ -1059,7 +1092,7 @@ function autoLinkPersonFields(config) {
         const el = document.getElementById(t.nric);
         if (el) {
           el.value = srcNric;
-          localStorage.setItem(t.nric, srcNric);
+          localStorage.setItem(t.nric, el.value);
           if (alwaysReadOnly) el.readOnly = true;
         }
       }
@@ -1068,7 +1101,7 @@ function autoLinkPersonFields(config) {
         const el = document.getElementById(t.mobile);
         if (el) {
           el.value = srcMobile;
-          localStorage.setItem(t.mobile, srcMobile);
+          localStorage.setItem(t.mobile, el.value);
           if (alwaysReadOnly) el.readOnly = true;
         }
       }
@@ -1077,11 +1110,15 @@ function autoLinkPersonFields(config) {
     if (typeof showSaveStatus === "function") showSaveStatus();
   }
 
-  if (trigger)
-    document.getElementById(trigger)?.addEventListener("change", applyLinking);
+  // bind trigger (if provided)
+  if (trigger) {
+    const cb = document.getElementById(trigger);
+    if (cb) cb.addEventListener("change", applyLinking);
+  }
 
-  // Bind source fields
+  // bind inputs on both sources (if provided)
   [sourceA, sourceB].forEach(src => {
+    if (!src) return;
     ["name", "nric", "mobile"].forEach(key => {
       if (!src[key]) return;
       const el = document.getElementById(src[key]);
@@ -1089,9 +1126,99 @@ function autoLinkPersonFields(config) {
     });
   });
 
+  // Restore saved values first (so restore happens after autoBindSave runs)
   restoreTargets();
+
+  // Initial linking run
   applyLinking();
 }
+
+/* ---------- Fast Fill dropdown (populate + apply) ---------- */
+const PERSON_PROFILES = {
+  insured: {
+    label: "Insured",
+    fields: {
+      name: "ClmMed_Insuredinfo_Name",
+      nric: "ClmMed_Insuredinfo_NIRC",
+      mobile: "ClmMed_Insuredinfo_Mobile",
+      email: "ClmMed_Insuredinfo_Email"
+    }
+  },
+  policyOwner: {
+    label: "Policy Owner",
+    fields: {
+      name: "ClmMed_POinfo_Name",
+      nric: "ClmMed_POinfo_NIRC",
+      mobile: "ClmMed_POinfo_Mobile",
+      email: "ClmMed_POinfo_Email"
+    }
+  }
+  // add more profiles here if you want
+};
+
+function populateFastFillDropdown() {
+  const sel = document.getElementById("FastFill_Selector");
+  if (!sel) return;
+  sel.innerHTML = `<option value="">-- Select --</option>`;
+
+  Object.entries(PERSON_PROFILES).forEach(([key, profile]) => {
+    const nameValue = localStorage.getItem(profile.fields.name) || document.getElementById(profile.fields.name)?.value || "";
+    if (nameValue.trim()) {
+      const opt = document.createElement("option");
+      opt.value = key;
+      opt.textContent = `${profile.label} (${nameValue.trim()})`;
+      sel.appendChild(opt);
+    }
+  });
+}
+
+function applyFastFillToTargets(profileKey, targets) {
+  const profile = PERSON_PROFILES[profileKey];
+  if (!profile) return;
+
+  // Read source values from page or localStorage
+  const nameVal = document.getElementById(profile.fields.name)?.value || localStorage.getItem(profile.fields.name) || "";
+  const nricVal = document.getElementById(profile.fields.nric)?.value || localStorage.getItem(profile.fields.nric) || "";
+  const mobVal  = document.getElementById(profile.fields.mobile)?.value || localStorage.getItem(profile.fields.mobile) || "";
+
+  targets.forEach(t => {
+    if (t.name) {
+      const el = document.getElementById(t.name);
+      if (el) { el.value = nameVal; localStorage.setItem(t.name, nameVal); }
+    }
+    if (t.nric) {
+      const el = document.getElementById(t.nric);
+      if (el) { el.value = nricVal; localStorage.setItem(t.nric, nricVal); }
+    }
+    if (t.mobile) {
+      const el = document.getElementById(t.mobile);
+      if (el) { el.value = mobVal; localStorage.setItem(t.mobile, mobVal); }
+    }
+  });
+
+  if (typeof showSaveStatus === "function") showSaveStatus();
+}
+
+function setupFastFill(targets) {
+  const sel = document.getElementById("FastFill_Selector");
+  if (!sel) return;
+
+  // Populate initial options
+  populateFastFillDropdown();
+
+  // Re-populate when source inputs change (keeps dropdown up-to-date)
+  Object.values(PERSON_PROFILES).forEach(profile => {
+    const nameEl = document.getElementById(profile.fields.name);
+    if (nameEl) nameEl.addEventListener("input", () => populateFastFillDropdown());
+  });
+
+  // When user selects, apply to all targets
+  sel.addEventListener("change", () => {
+    if (!sel.value) return;
+    applyFastFillToTargets(sel.value, targets);
+  });
+}
+
 
 
 /* ---------- UNIVERSAL HELPER FUNCTION ---------- */
@@ -1360,39 +1487,39 @@ window.addEventListener("DOMContentLoaded", ()=>{
 
 /* ---------- FINAL: RUN AUTO-LINK AFTER autoBindSave RESTORES VALUES ---------- */
 window.addEventListener("DOMContentLoaded", () => {
-  // Wait 50ms to allow autoBindSave() to finish restoring ALL persist fields
+  // Wait 50ms to allow autoBindSave() to finish restoring persist fields
   setTimeout(() => {
+    // 1) Auto link (multi targets)
     autoLinkPersonFields({
-      trigger: "CB_PO",
-
-      sourceA: { // Insured
+      // remove trigger if you want always-copy from insured
+      trigger: "CB_PO", // optional; omit this key if no trigger
+      sourceA: {
         name: "ClmMed_Insuredinfo_Name",
         nric: "ClmMed_Insuredinfo_NIRC",
-        mobile: "ClmMed_Insuredinfo_Mobile"   // NEW
+        mobile: "ClmMed_Insuredinfo_Mobile"
       },
-
-      sourceB: { // Policy Owner
+      sourceB: {
         name: "ClmMed_POinfo_Name",
         nric: "ClmMed_POinfo_NIRC",
-        mobile: "ClmMed_POinfo_Mobile"       // NEW
+        mobile: "ClmMed_POinfo_Mobile"
       },
-
       targets: [
-        { // Bank Section
-          name: "ClmMed_EBank_Name",
-          nric: "ClmMed_EBank_NIRC",
-        },
-        { // Signature Section
-          name: "ClmMed_Sign_PO_Name",
-          nric: "ClmMed_Sign_PO_NIRC",
-          mobile: "ClmMed_Sign_Relationship_Mobile"
-        }
+        { name: "ClmMed_EBank_Name", nric: "ClmMed_EBank_NIRC", mobile: "ClmMed_EBank_Mobile" },
+        { name: "ClmMed_Sign_PO_Name", nric: "ClmMed_Sign_PO_NRIC", mobile: "ClmMed_Sign_PO_Mobile" }
+        // add more target objects as required
       ],
-
       alwaysReadOnly: true
     });
+
+    // 2) Setup Fast-Fill dropdown (same targets as above, OR any other set)
+    setupFastFill([
+      { name: "ClmMed_Sign_PO_Name", nric: "ClmMed_Sign_PO_NRIC", mobile: "ClmMed_Sign_PO_Mobile" },
+      { name: "ClmMed_EBank_Name", nric: "ClmMed_EBank_NIRC", mobile: "ClmMed_EBank_Mobile" }
+    ]);
+
   }, 50);
 });
+
 
 
 

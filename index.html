@@ -1060,7 +1060,7 @@ function autoLinkPersonFields(config) {
 
   function restoreTargets() {
     targets.forEach(t => {
-      ["name", "nric", "mobile"].forEach(key => {
+      ["name", "nirc", "mobile"].forEach(key => {
         if (!t[key]) return;
         const el = document.getElementById(t[key]);
         const saved = localStorage.getItem(t[key]);
@@ -1075,7 +1075,7 @@ function autoLinkPersonFields(config) {
     const src = cb?.checked ? sourceB : sourceA;
 
     const srcName   = src?.name ? (document.getElementById(src.name)?.value || "") : "";
-    const srcNric   = src?.nric ? (document.getElementById(src.nric)?.value || "") : "";
+    const srcNirc   = src?.nirc ? (document.getElementById(src.nirc)?.value || "") : "";
     const srcMobile = src?.mobile ? (document.getElementById(src.mobile)?.value || "") : "";
 
     targets.forEach(t => {
@@ -1088,11 +1088,11 @@ function autoLinkPersonFields(config) {
         }
       }
 
-      if (t.nric) {
-        const el = document.getElementById(t.nric);
+      if (t.nirc) {
+        const el = document.getElementById(t.nirc);
         if (el) {
-          el.value = srcNric;
-          localStorage.setItem(t.nric, el.value);
+          el.value = srcNirc;
+          localStorage.setItem(t.nirc, el.value);
           if (alwaysReadOnly) el.readOnly = true;
         }
       }
@@ -1119,7 +1119,7 @@ function autoLinkPersonFields(config) {
   // bind inputs on both sources (if provided)
   [sourceA, sourceB].forEach(src => {
     if (!src) return;
-    ["name", "nric", "mobile"].forEach(key => {
+    ["name", "nirc", "mobile"].forEach(key => {
       if (!src[key]) return;
       const el = document.getElementById(src[key]);
       if (el) el.addEventListener("input", applyLinking);
@@ -1139,7 +1139,7 @@ const PERSON_PROFILES = {
     label: "Insured",
     fields: {
       name: "ClmMed_Insuredinfo_Name",
-      nric: "ClmMed_Insuredinfo_NIRC",
+      nirc: "ClmMed_Insuredinfo_NIRC",
       mobile: "ClmMed_Insuredinfo_Mobile",
       email: "ClmMed_Insuredinfo_Email"
     }
@@ -1148,7 +1148,7 @@ const PERSON_PROFILES = {
     label: "Policy Owner",
     fields: {
       name: "ClmMed_POinfo_Name",
-      nric: "ClmMed_POinfo_NIRC",
+      nirc: "ClmMed_POinfo_NIRC",
       mobile: "ClmMed_POinfo_Mobile",
       email: "ClmMed_POinfo_Email"
     }

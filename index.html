@@ -1159,18 +1159,32 @@ const PERSON_PROFILES = {
 function populateFastFillDropdown() {
   const sel = document.getElementById("FastFill_Selector");
   if (!sel) return;
+
+  const cbPO = document.getElementById("CB_PO"); // checkbox
+
   sel.innerHTML = `<option value="">-- Select --</option>`;
 
-  Object.entries(PERSON_PROFILES).forEach(([key, profile]) => {
-    const nameValue = localStorage.getItem(profile.fields.name) || document.getElementById(profile.fields.name)?.value || "";
-    if (nameValue.trim()) {
+  // Always show Insured (always exists)
+  const insuredName = localStorage.getItem(PERSON_PROFILES.insured.fields.name);
+  if (insuredName && insuredName.trim()) {
+    const opt = document.createElement("option");
+    opt.value = "insured";
+    opt.textContent = `Insured (${insuredName})`;
+    sel.appendChild(opt);
+  }
+
+  // Show Policy Owner ONLY IF checkbox is checked
+  if (cbPO && cbPO.checked) {
+    const poName = localStorage.getItem(PERSON_PROFILES.policyOwner.fields.name);
+    if (poName && poName.trim()) {
       const opt = document.createElement("option");
-      opt.value = key;
-      opt.textContent = `${profile.label} (${nameValue.trim()})`;
+      opt.value = "policyOwner";
+      opt.textContent = `Policy Owner (${poName})`;
       sel.appendChild(opt);
     }
-  });
+  }
 }
+
 
 function applyFastFillToTargets(profileKey, targets) {
   const profile = PERSON_PROFILES[profileKey];
@@ -1207,10 +1221,11 @@ function setupFastFill(targets) {
   populateFastFillDropdown();
 
   // Re-populate when source inputs change (keeps dropdown up-to-date)
-  Object.values(PERSON_PROFILES).forEach(profile => {
-    const nameEl = document.getElementById(profile.fields.name);
-    if (nameEl) nameEl.addEventListener("input", () => populateFastFillDropdown());
-  });
+Object.values(PERSON_PROFILES).forEach(profile => {
+  const nameEl = document.getElementById(profile.fields.name);
+  if (nameEl) nameEl.addEventListener("input", () => populateFastFillDropdown());
+});
+
 
   // When user selects, apply to all targets
   sel.addEventListener("change", () => {

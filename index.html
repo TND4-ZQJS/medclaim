@@ -1495,17 +1495,17 @@ window.addEventListener("DOMContentLoaded", () => {
       trigger: "CB_PO", // optional; omit this key if no trigger
       sourceA: {
         name: "ClmMed_Insuredinfo_Name",
-        nric: "ClmMed_Insuredinfo_NIRC",
+        nirc: "ClmMed_Insuredinfo_NIRC",
         mobile: "ClmMed_Insuredinfo_Mobile"
       },
       sourceB: {
         name: "ClmMed_POinfo_Name",
-        nric: "ClmMed_POinfo_NIRC",
+        nirc: "ClmMed_POinfo_NIRC",
         mobile: "ClmMed_POinfo_Mobile"
       },
       targets: [
-        { name: "ClmMed_EBank_Name", nric: "ClmMed_EBank_NIRC"},
-        { name: "ClmMed_Sign_PO_Name", nric: "ClmMed_Sign_PO_NIRC"}
+        { name: "ClmMed_EBank_Name", nirc: "ClmMed_EBank_NIRC"},
+        { name: "ClmMed_Sign_PO_Name", nirc: "ClmMed_Sign_PO_NIRC"}
         // add more target objects as required
       ],
       alwaysReadOnly: true
@@ -1513,8 +1513,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
     // 2) Setup Fast-Fill dropdown (same targets as above, OR any other set)
     setupFastFill([
-      { name: "ClmMed_Sign_PO_Name", nric: "ClmMed_Sign_PO_NIRC", mobile: "ClmMed_Sign_PO_Mobile" },
-      { name: "ClmMed_EBank_Name", nric: "ClmMed_EBank_NIRC", mobile: "ClmMed_EBank_Mobile" }
+      { name: "ClmMed_Sign_PO_Name", nirc: "ClmMed_Sign_PO_NIRC", mobile: "ClmMed_Sign_PO_Mobile" },
+      { name: "ClmMed_EBank_Name", nirc: "ClmMed_EBank_NIRC", mobile: "ClmMed_EBank_Mobile" }
     ]);
 
   }, 50);

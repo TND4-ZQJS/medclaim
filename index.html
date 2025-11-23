@@ -1026,7 +1026,7 @@ function autoLinkPersonFields(config) {
 
   function restoreTargets() {
     targets.forEach(t => {
-      ["name", "nric", "mobile"].forEach(key => {
+      ["name", "nirc", "mobile"].forEach(key => {
         if (!t[key]) return;
         const el = document.getElementById(t[key]);
         const saved = localStorage.getItem(t[key]);
@@ -1042,7 +1042,7 @@ function autoLinkPersonFields(config) {
     const src = cb?.checked ? sourceB : sourceA;
 
     const srcName  = document.getElementById(src.name)?.value || "";
-    const srcNric  = document.getElementById(src.nric)?.value || "";
+    const srcNirc  = document.getElementById(src.nirc)?.value || "";
     const srcMobile = src.mobile ? (document.getElementById(src.mobile)?.value || "") : "";
 
     targets.forEach(t => {
@@ -1055,11 +1055,11 @@ function autoLinkPersonFields(config) {
         }
       }
 
-      if (t.nric) {
-        const el = document.getElementById(t.nric);
+      if (t.nirc) {
+        const el = document.getElementById(t.nirc);
         if (el) {
-          el.value = srcNric;
-          localStorage.setItem(t.nric, srcNric);
+          el.value = srcNirc;
+          localStorage.setItem(t.nirc, srcNirc);
           if (alwaysReadOnly) el.readOnly = true;
         }
       }
@@ -1082,7 +1082,7 @@ function autoLinkPersonFields(config) {
 
   // Bind source fields
   [sourceA, sourceB].forEach(src => {
-    ["name", "nric", "mobile"].forEach(key => {
+    ["name", "nirc", "mobile"].forEach(key => {
       if (!src[key]) return;
       const el = document.getElementById(src[key]);
       if (el) el.addEventListener("input", applyLinking);
@@ -1367,24 +1367,24 @@ window.addEventListener("DOMContentLoaded", () => {
 
       sourceA: { // Insured
         name: "ClmMed_Insuredinfo_Name",
-        nric: "ClmMed_Insuredinfo_NIRC",
+        nirc: "ClmMed_Insuredinfo_NIRC",
         mobile: "ClmMed_Insuredinfo_Mobile"   // NEW
       },
 
       sourceB: { // Policy Owner
         name: "ClmMed_POinfo_Name",
-        nric: "ClmMed_POinfo_NIRC",
+        nirc: "ClmMed_POinfo_NIRC",
         mobile: "ClmMed_POinfo_Mobile"       // NEW
       },
 
       targets: [
         { // Bank Section
           name: "ClmMed_EBank_Name",
-          nric: "ClmMed_EBank_NIRC",
+          nirc: "ClmMed_EBank_NIRC",
         },
         { // Signature Section
           name: "ClmMed_Sign_PO_Name",
-          nric: "ClmMed_Sign_PO_NIRC",
+          nirc: "ClmMed_Sign_PO_NIRC",
           mobile: "ClmMed_Sign_Relationship_Mobile"
         }
       ],

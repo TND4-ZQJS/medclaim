@@ -699,7 +699,7 @@ label:has(.time-input-group)::first-line {
   <div class="container-grid" id="otherCoverageGrid">
     <!-- Dynamic entries will be appended here -->
   </div>
-  <button type="button" id="addOtherCoverageBtn">Add Other Coverage</button>
+  <button type="button" id="addOtherCoverageBtn">+Add Other Coverage</button>
 </section>
 
 
@@ -914,8 +914,8 @@ function createOtherCoverageEntry(index){
       <button type="button" class="remove-btn">Remove</button>
     </h3>
     <div class="row" style="flex:1">
-      <label style="flex:1" for="ClmMed_OtherCover_CompName${index}">Name of Company</label>
-      <input type="text" id="ClmMed_OtherCover_CompName${index}" value="${restoreValue("ClmMed_OtherCover_CompName"+index)}">
+      <label style="flex:1" for="ClmMed_OtherCover_CompName${index}">Name of Company
+      <input type="text" id="ClmMed_OtherCover_CompName${index}" value="${restoreValue("ClmMed_OtherCover_CompName"+index)}"></label>
     </div>
     <div class="row" style="flex:1">
       <label style="flex:1" for="ClmMed_OtherCover_PolicyNo${index}">Policy / Membership No</label>

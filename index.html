@@ -305,8 +305,15 @@ label:has(.time-input-group)::first-line {
 
 .collapsible-content {
   width: 100%;
-  padding: 0;              /* or minimal padding like 10px */
-  box-sizing: border-box;  /* ensures padding doesn’t shrink width */
+  max-height: 0;               /* needed for collapse */
+  overflow: hidden;            /* hides content when collapsed */
+  transition: max-height 0.3s ease;  
+  padding: 0;                  /* keep your full-width layout */
+  box-sizing: border-box;
+}
+
+.collapsible-content.active {
+  max-height: 2000px;   /* large enough for content */
 }
 
 .collapsible-content.open {

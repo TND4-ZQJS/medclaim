@@ -251,6 +251,12 @@ label:has(.time-input-group)::first-line {
 }
 .entry .remove-btn:hover{border-color:#d0d0d7;}
 
+@media(max-width: 600px) {
+    .policies-container-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 
   /*Other Coverage Container grid for dynamic cards */
 .container-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
@@ -410,11 +416,11 @@ label:has(.time-input-group)::first-line {
   <div class="row">
   <div class="policies-container-grid" id="basicPolicyGrid">
     <!-- First entry auto-created on load -->
-  <div class="row">  
+  </div>
+    <div class="row">  
   <button type="button" id="addBasicPolicyBtn">+Add Policy No</button>
   <small class="muted">Up to 4 policies</small>
     </div>
-  </div>
   </div>
 </section>
 

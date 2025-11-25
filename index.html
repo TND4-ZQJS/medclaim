@@ -304,17 +304,12 @@ label:has(.time-input-group)::first-line {
 }
 
 .collapsible-content {
-  width: 100%;
-  max-height: 0;               /* needed for collapse */
-  overflow: hidden;            /* hides content when collapsed */
-  transition: max-height 0.3s ease;  
-  padding: 0;                  /* keep your full-width layout */
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  padding: 0;
   box-sizing: border-box;
-}
 
-.collapsible-content.active {
-  max-height: 2000px;   /* large enough for content */
-}
 
 .collapsible-content.open {
   padding: 16px;
@@ -971,8 +966,8 @@ function toggleCollapse(header) {
     content.style.maxHeight = null;
     icon.style.transform = "rotate(0deg)";
   } else {
-    content.classList.add("open");
-    content.style.maxHeight = content.scrollHeight + "px";
+    content.classList.add("open");           // ADD FIRST
+    content.style.maxHeight = content.scrollHeight + "px"; // THEN measure
     icon.style.transform = "rotate(45deg)";
   }
 }

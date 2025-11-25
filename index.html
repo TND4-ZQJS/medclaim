@@ -695,11 +695,11 @@ label:has(.time-input-group)::first-line {
 
    <!-- SECTION 7: Other Coverage -->
 <section id="otherCoverageSection" class="section">
-  <h2>Particulars of Other Coverage</h2>
+  <h2>Particulars of Other Coverage/Scheme/Policy(ies)</h2>
   <div class="container-grid" id="otherCoverageGrid">
     <!-- Dynamic entries will be appended here -->
   </div>
-  <button type="button" id="addOtherCoverageBtn">+Add Other Coverage</button>
+  <button type="button" id="addOtherCoverageBtn">+ Add Other Coverage</button>
 </section>
 
 
@@ -914,20 +914,20 @@ function createOtherCoverageEntry(index){
       <button type="button" class="remove-btn">Remove</button>
     </h3>
     <div class="row" style="flex:1">
-      <label style="flex:1" for="ClmMed_OtherCover_CompName${index}">Name of Company
+      <label style="flex:1" for="ClmMed_OtherCover_CompName${index}">Name of Company/Insurer/Scheme
       <input type="text" id="ClmMed_OtherCover_CompName${index}" value="${restoreValue("ClmMed_OtherCover_CompName"+index)}"></label>
     </div>
     <div class="row" style="flex:1">
-      <label style="flex:1" for="ClmMed_OtherCover_PolicyNo${index}">Policy / Membership No</label>
-      <input type="text" id="ClmMed_OtherCover_PolicyNo${index}" value="${restoreValue("ClmMed_OtherCover_PolicyNo"+index)}">
+      <label style="flex:1" for="ClmMed_OtherCover_PolicyNo${index}">Policy/Membership No.
+      <input type="text" id="ClmMed_OtherCover_PolicyNo${index}" value="${restoreValue("ClmMed_OtherCover_PolicyNo"+index)}"></label>
     </div>
     <div class="row" style="flex:1">
-      <label class="flex:1" for="ClmMed_OtherCover_Date${index}">Effective Date of Cover</label>
-      <input type="text" id="ClmMed_OtherCover_Date${index}" value="${restoreValue("ClmMed_OtherCover_Date"+index)}">
+      <label class="flex:1" for="ClmMed_OtherCover_Date${index}">Effective Date of Cover
+      <input type="text" id="ClmMed_OtherCover_Date${index}" value="${restoreValue("ClmMed_OtherCover_Date"+index)}"></label>
     </div>
     <div class="row" style="flex:1">
-      <label style="flex:1" for="ClmMed_OtherCover_FA${index}">Sum Assured</label>
-      <input type="text" id="ClmMed_OtherCover_FA${index}" value="${restoreValue("ClmMed_OtherCover_FA"+index)}">
+      <label style="flex:1" for="ClmMed_OtherCover_FA${index}">Sum Assured
+      <input type="text" id="ClmMed_OtherCover_FA${index}" value="${restoreValue("ClmMed_OtherCover_FA"+index)}"></label>
     </div>
   `;
 

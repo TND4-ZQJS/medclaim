@@ -391,7 +391,6 @@ label:has(.time-input-group)::first-line {
    </div>
      
   <div class="row">
-      <h2>Policy No</h2>
   <div class="container-grid" id="basicPolicyGrid">
     <!-- First entry auto-created on load -->
   </div>
@@ -1001,11 +1000,10 @@ function createBasicPolicyEntry(index) {
 
     <div class="other-coverage-row full">
       <label class="field-label" for="ClmMed_Basicinfo_PolicyNo${index}">
-        Policy No
-      </label>
+      
       <input type="text" id="ClmMed_Basicinfo_PolicyNo${index}"
-        value="${restoreBasicPolicyValue("ClmMed_Basicinfo_PolicyNo" + index)}"
-      >
+        value="${restoreBasicPolicyValue("ClmMed_Basicinfo_PolicyNo" + index)}">
+      </label>
     </div>
   `;
 

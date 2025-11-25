@@ -390,21 +390,15 @@ label:has(.time-input-group)::first-line {
       </label>
    </div>
      
-  <div class="grid-2">
-      <label style="flex:1">Policy(1)
-        <input id="ClmMed_Basicinfo_PolicyNo1" class="persist" type="text" placeholder="Enter policy no.">
-      </label>
-      <label style="flex:1">Policy(2)
-        <input id="ClmMed_Basicinfo_PolicyNo2" class="persist" type="text" placeholder="Enter policy no.">
-      </label>
-      <label style="flex:1">Policy(3)
-        <input id="ClmMed_Basicinfo_PolicyNo3" class="persist" type="text" placeholder="Enter policy no.">
-      </label>
-      <label style="flex:1">Policy(4)
-        <input id="ClmMed_Basicinfo_PolicyNo4" class="persist" type="text" placeholder="Enter policy no.">
-      </label>
+  <div class="row">
+      <h2>Policy No</h2>
+  <div class="container-grid" id="basicPolicyGrid">
+    <!-- First entry auto-created on load -->
+  </div>
+  <button type="button" id="addBasicPolicyBtn">Add Policy No</button>
     </div>
-  </section>
+
+</section>
 
 
    <!-- SECTION: Type of Claim -->
@@ -976,6 +970,122 @@ function toggleCollapse(header) {
     icon.style.transform = "rotate(45deg)";
   }
 }
+
+/********************************************
+ * BASIC INFO POLICY NO (1 input per entry)
+ ********************************************/
+const basicPolicyMax = 4;
+const basicPolicyGrid = document.getElementById("basicPolicyGrid");
+const addBasicPolicyBtn = document.getElementById("addBasicPolicyBtn");
+
+// LocalStorage Save
+function saveBasicPolicy(id, value) {
+  localStorage.setItem(id, value);
+}
+
+// LocalStorage Restore
+function restoreBasicPolicyValue(id) {
+  return localStorage.getItem(id) || "";
+}
+
+// Create one entry (card)
+function createBasicPolicyEntry(index) {
+  const entry = document.createElement("div");
+  entry.className = "entry";
+  entry.dataset.index = index;
+
+  entry.innerHTML = `
+    <h3>Policy No #${index}
+      ${index > 1 ? `<button type="button" class="remove-btn">Remove</button>` : ""}
+    </h3>
+
+    <div class="other-coverage-row full">
+      <label class="field-label" for="ClmMed_Basicinfo_PolicyNo${index}">
+        Policy No
+      </label>
+      <input type="text" id="ClmMed_Basicinfo_PolicyNo${index}"
+        value="${restoreBasicPolicyValue("ClmMed_Basicinfo_PolicyNo" + index)}"
+      >
+    </div>
+  `;
+
+  // Save on input
+  entry.querySelectorAll("input").forEach(inp => {
+    inp.addEventListener("input", e => {
+      saveBasicPolicy(e.target.id, e.target.value);
+    });
+  });
+
+  // Remove button (except entry #1)
+  const removeBtn = entry.querySelector(".remove-btn");
+  if (removeBtn) {
+    removeBtn.addEventListener("click", () => {
+      entry.remove();
+      updateBasicPolicyAddStatus();
+      renumberBasicPolicyEntries();
+    });
+  }
+
+  basicPolicyGrid.appendChild(entry);
+  updateBasicPolicyAddStatus();
+}
+
+// Disable 'Add' button if 4 entries already exist
+function updateBasicPolicyAddStatus() {
+  const count = basicPolicyGrid.querySelectorAll(".entry").length;
+  addBasicPolicyBtn.disabled = count >= basicPolicyMax;
+}
+
+// Keep headings in order after removal
+function renumberBasicPolicyEntries() {
+  const entries = basicPolicyGrid.querySelectorAll(".entry");
+  entries.forEach((entry, i) => {
+    const newIndex = i + 1;
+    entry.dataset.index = newIndex;
+    entry.querySelector("h3").innerHTML = `
+      Policy No #${newIndex}
+      ${newIndex > 1 ? `<button type="button" class="remove-btn">Remove</button>` : ""}
+    `;
+
+    // Reattach remove button handler
+    if (newIndex > 1) {
+      entry.querySelector(".remove-btn").addEventListener("click", () => {
+        entry.remove();
+        updateBasicPolicyAddStatus();
+        renumberBasicPolicyEntries();
+      });
+    }
+  });
+}
+
+// Restore entries from saved data (at least 1 must exist)
+function restoreBasicPolicy() {
+  let foundExisting = false;
+
+  for (let i = 1; i <= basicPolicyMax; i++) {
+    const savedVal = localStorage.getItem("ClmMed_Basicinfo_PolicyNo" + i);
+
+    if (savedVal && savedVal.trim() !== "") {
+      createBasicPolicyEntry(i);
+      foundExisting = true;
+    }
+  }
+
+  // If no saved data → always create entry #1
+  if (!foundExisting) {
+    createBasicPolicyEntry(1);
+  }
+}
+
+// Add new entry
+addBasicPolicyBtn.addEventListener("click", () => {
+  const count = basicPolicyGrid.querySelectorAll(".entry").length;
+  createBasicPolicyEntry(count + 1);
+});
+
+// Initialize on page load
+restoreBasicPolicy();
+
 
 /* ---------- Other Coverage dynamic container (max 4) ---------- */
 const maxOtherCoverage = 4;

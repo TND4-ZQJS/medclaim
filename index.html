@@ -281,6 +281,39 @@ label:has(.time-input-group)::first-line {
 /* Labels inside entry */
 .entry .field-label { font-size:0.92rem; margin-bottom:6px; display:block; } 
 
+.collapsible {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+
+.collapsible-header {
+  padding: 12px 16px;
+  background: #f7f7f8;
+  cursor: pointer;
+  user-select: none;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.collapsible-header .icon {
+  transition: transform 0.25s ease;
+}
+
+.collapsible-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease;
+  padding: 0 16px;
+}
+
+.collapsible-content.open {
+  padding: 16px;
+}
+
 
   /* Signature preview tiles */
   .sig-preview{
@@ -404,47 +437,76 @@ label:has(.time-input-group)::first-line {
   </section>
 
   <!-- SECTION 3: Particulars of Insured Person-->
-  <section class="section">
-    <h2>3. Particulars of Insured Person</h2>
- <div class="row">
-  <small class="muted">Ensure your email and mobile number are updated in order to receive claim notifications on a timely manner.</small>
- </div>
-    
-     <div class="row">
-      <label style="flex:1">Name<input id="ClmMed_Insuredinfo_Name" class="persist" type="text" placeholder="Enter name">
-      </label>
-    </div>
-    <div class="row">
-      <label style="flex:1">NIRC/Passport No.<input id="ClmMed_Insuredinfo_NIRC" class="persist" type="text" placeholder="Enter number">
-      </label>
-     </div>
-    <div class="row">
-      <label style="flex:1">Mobile No.<input id="ClmMed_Insuredinfo_Mobile" class="persist" type="text" placeholder="Enter mobile no.">
-      </label>
-         <label style="flex:1">Email<input id="ClmMed_Insuredinfo_Email" class="persist" type="text" placeholder="Enter email">
-      </label>
-     </div>
-   <div class="row">
-      <label style="flex:1">Current Correspondence Address<textarea id="ClmMed_Insuredinfo_Add" class="persist" placeholder="Enter address"></textarea>
-      </label>
-     </div>
-       <div class="row">
-      <label style="flex:1">Current Occupation<input id="ClmMed_Insuredinfo_Occupation" class="persist" type="text" placeholder="Enter occupation">
-      </label>
-     </div>
-       <div class="row">
-      <label style="flex:1">Exaxt Duties Performed<input id="ClmMed_Insuredinfo_Duties" class="persist" type="text" placeholder="Enter number">
-      </label>
-     </div>
-       <div class="row">
-      <label style="flex:1">Name of Current Employer<input id="ClmMed_Insuredinfo_Employer" class="persist" type="text" placeholder="Enter number">
-      </label>
-     </div>
-       <div class="row">
-      <label style="flex:1">Address of Employer<textarea id="ClmMed_Insuredinfo_EmployerAdd" class="persist" placeholder="Enter address"></textarea>
-      </label>
-     </div>
-  </section>
+<div class="collapsible">
+  <div class="collapsible-header" onclick="toggleCollapse(this)">
+    3. Particulars of Insured Person
+    <span class="icon">+</span>
+  </div>
+
+  <div class="collapsible-content">
+    <section class="section">
+
+      <div class="row">
+        <small class="muted">
+          Ensure your email and mobile number are updated in order to receive claim notifications on a timely manner.
+        </small>
+      </div>
+
+      <div class="row">
+        <label style="flex:1">Name
+          <input id="ClmMed_Insuredinfo_Name" class="persist" type="text" placeholder="Enter name">
+        </label>
+      </div>
+
+      <div class="row">
+        <label style="flex:1">NIRC/Passport No.
+          <input id="ClmMed_Insuredinfo_NIRC" class="persist" type="text" placeholder="Enter number">
+        </label>
+      </div>
+
+      <div class="row">
+        <label style="flex:1">Mobile No.
+          <input id="ClmMed_Insuredinfo_Mobile" class="persist" type="text" placeholder="Enter mobile no.">
+        </label>
+
+        <label style="flex:1">Email
+          <input id="ClmMed_Insuredinfo_Email" class="persist" type="text" placeholder="Enter email">
+        </label>
+      </div>
+
+      <div class="row">
+        <label style="flex:1">Current Correspondence Address
+          <textarea id="ClmMed_Insuredinfo_Add" class="persist" placeholder="Enter address"></textarea>
+        </label>
+      </div>
+
+      <div class="row">
+        <label style="flex:1">Current Occupation
+          <input id="ClmMed_Insuredinfo_Occupation" class="persist" type="text" placeholder="Enter occupation">
+        </label>
+      </div>
+
+      <div class="row">
+        <label style="flex:1">Exact Duties Performed
+          <input id="ClmMed_Insuredinfo_Duties" class="persist" type="text" placeholder="Enter number">
+        </label>
+      </div>
+
+      <div class="row">
+        <label style="flex:1">Name of Current Employer
+          <input id="ClmMed_Insuredinfo_Employer" class="persist" type="text" placeholder="Enter number">
+        </label>
+      </div>
+
+      <div class="row">
+        <label style="flex:1">Address of Employer
+          <textarea id="ClmMed_Insuredinfo_EmployerAdd" class="persist" placeholder="Enter address"></textarea>
+        </label>
+      </div>
+
+    </section>
+  </div>
+</div>
 
 
   <!-- SECTION 4: Particulars of policyowner-->
@@ -887,6 +949,22 @@ const CONTROLLER_BY_SECTION = {
   Policyownerinfo: "CB_PO",
   accidentsection: "CB_Accident"
 };
+  
+/* ---------- Collpasible section UI ---------- */
+function toggleCollapse(header) {
+  const content = header.nextElementSibling;
+  const icon = header.querySelector(".icon");
+
+  if (content.classList.contains("open")) {
+    content.classList.remove("open");
+    content.style.maxHeight = null;
+    icon.style.transform = "rotate(0deg)";
+  } else {
+    content.classList.add("open");
+    content.style.maxHeight = content.scrollHeight + "px";
+    icon.style.transform = "rotate(45deg)";
+  }
+}
 
 /* ---------- Other Coverage dynamic container (max 4) ---------- */
 const maxOtherCoverage = 4;

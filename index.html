@@ -304,10 +304,9 @@ label:has(.time-input-group)::first-line {
 }
 
 .collapsible-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.25s ease;
-  padding: 0 16px;
+  width: 100%;
+  padding: 0;              /* or minimal padding like 10px */
+  box-sizing: border-box;  /* ensures padding doesn’t shrink width */
 }
 
 .collapsible-content.open {

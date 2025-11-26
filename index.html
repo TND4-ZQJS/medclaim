@@ -1015,50 +1015,49 @@ function toggleCollapse(header) {
   const content = header.nextElementSibling;
   const icon = header.querySelector(".icon");
 
-  if (content.classList.contains("open")) {
-    // 1. Closing the current section
+  const isOpen = content.classList.contains("open");
+
+  if (isOpen) {
+    // CLOSE
     content.classList.remove("open");
     content.style.maxHeight = null;
     icon.style.transform = "rotate(0deg)";
-    
-    // 2. Update parents AFTER the content height has collapsed
-    updateParentHeights(content); 
 
+    // Recalculate parents after transition ends
+    content.addEventListener(
+      "transitionend",
+      () => updateParentHeights(content),
+      { once: true }
+    );
   } else {
-    // 1. Opening the current section
+    // OPEN
     content.classList.add("open");
 
-    // Force CSS to apply the new padding (using a reflow trigger)
-    // This ensures scrollHeight includes the 16px top/bottom padding
-    content.offsetWidth; // Triggers reflow
-
-    // 2. CRUCIAL: Set the max-height dynamically to content's full height
+    // Force reflow before setting max-height
     content.style.maxHeight = content.scrollHeight + "px";
     icon.style.transform = "rotate(45deg)";
-    
-    // 3. Update parents AFTER the content height has expanded
-    updateParentHeights(content); 
+
+    // Wait for height to finish animating, then recalc parents
+    content.addEventListener(
+      "transitionend",
+      () => updateParentHeights(content),
+      { once: true }
+    );
   }
 }
-
-/**
- * Helper function to travel up the DOM tree and re-calculate/reset 
- * the max-height of any open parent collapsible elements.
- * * NOTE: The logic here is sound and does not need change.
- */
+  
 function updateParentHeights(element) {
-  let parentContent = element.parentElement;
+  let parent = element.parentElement;
 
-  // Loop up the DOM tree
-  while (parentContent) {
-    // Check if the parent is an open collapsible content area
-    if (parentContent.classList.contains('collapsible-content') && parentContent.classList.contains('open')) {
-      // Re-calculate the max-height to include the changes in the child
-      parentContent.style.maxHeight = parentContent.scrollHeight + "px";
+  while (parent) {
+    if (parent.classList.contains("collapsible-content") &&
+        parent.classList.contains("open")) {
+
+      // Force reflow before applying new max-height
+      parent.style.maxHeight = parent.scrollHeight + "px";
     }
 
-    // Move to the next parent element
-    parentContent = parentContent.parentElement;
+    parent = parent.parentElement;
   }
 }
 

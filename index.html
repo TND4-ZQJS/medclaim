@@ -304,13 +304,16 @@ label:has(.time-input-group)::first-line {
 /* Labels inside entry */
 .entry .field-label { font-size:0.92rem; margin-bottom:6px; display:block; } 
 
+/* Container for the whole element */
 .collapsible {
   border: 1px solid #ddd;
   border-radius: 8px;
   margin-bottom: 12px;
-  overflow: hidden;
+  /* Keep overflow: hidden; as it helps with border-radius clipping */
+  overflow: hidden; 
 }
 
+/* Header styling (no change needed here) */
 .collapsible-header {
   padding: 12px 16px;
   background: #f7f7f8;
@@ -322,25 +325,30 @@ label:has(.time-input-group)::first-line {
   align-items: center;
 }
 
+/* Icon transition (no change needed here) */
 .collapsible-header .icon {
   transition: transform 0.25s ease;
 }
 
+/* Collapsible Content */
 .collapsible-content {
   width: 100%;
-  max-height: 0;               /* needed for collapse */
-  overflow: hidden;            /* hides content when collapsed */
-  transition: max-height 0.3s ease;  
-  padding: 0;                  /* keep your full-width layout */
+  max-height: 0;               /* Default collapsed state */
+  overflow: hidden;            /* Hides content when collapsed */
+  /* Add padding to the transition for a smoother effect when opening/closing */
+  transition: max-height 0.3s ease, padding 0.3s ease;  
+  /* Use horizontal padding here to maintain full width, vertical padding is in .open */
+  padding: 0 16px;                  
   box-sizing: border-box;
+  background-color: #ffffff; /* Optional: ensures background is visible */
 }
 
-.collapsible-content.active {
-  max-height: 2000px;   /* large enough for content */
-}
-
+/* The state class added by JavaScript */
 .collapsible-content.open {
-  padding: 16px;
+  /* The max-height is set by JS (content.style.maxHeight) */
+  /* Add vertical padding when open */
+  padding-top: 16px;
+  padding-bottom: 16px;
 }
 
 
@@ -1007,15 +1015,45 @@ function toggleCollapse(header) {
   const icon = header.querySelector(".icon");
 
   if (content.classList.contains("open")) {
+    // Closing the current section
     content.classList.remove("open");
     content.style.maxHeight = null;
     icon.style.transform = "rotate(0deg)";
   } else {
+    // Opening the current section
     content.classList.add("open");
+    // CRUCIAL: Set the max-height dynamically to content's full height
     content.style.maxHeight = content.scrollHeight + "px";
     icon.style.transform = "rotate(45deg)";
   }
+
+  // CRITICAL FIX: After opening/closing, update all parent collapsible heights
+  updateParentHeights(content);
 }
+
+/**
+ * Helper function to travel up the DOM tree and re-calculate/reset 
+ * the max-height of any open parent collapsible elements.
+ */
+function updateParentHeights(element) {
+  let parentContent = element.parentElement;
+
+  // Loop up the DOM tree
+  while (parentContent) {
+    // Check if the parent is an open collapsible content area
+    if (parentContent.classList.contains('collapsible-content') && parentContent.classList.contains('open')) {
+      // Re-calculate the max-height to include the changes in the child
+      parentContent.style.maxHeight = parentContent.scrollHeight + "px";
+    }
+
+    // Move to the next parent element
+    parentContent = parentContent.parentElement;
+  }
+}
+
+// NOTE: You'll need to link this function to your header elements, 
+// e.g., using: <div class="collapsible-header" onclick="toggleCollapse(this)">
+
 
 /********************************************
  * BASIC INFO POLICY NO (1 input per entry)

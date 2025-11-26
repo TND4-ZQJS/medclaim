@@ -566,8 +566,11 @@ label:has(.time-input-group)::first-line {
   </section>
 
   <!-- SECTION 5: Particular of Illness/Accident-->
-  <section class="section">
-    <h2>5. Particulars of Illness/Accident</h2>
+<div class="collapsible">
+  <div class="collapsible-header" onclick="toggleCollapse(this)">
+    5: Particular of Illness/Accident
+        <span class="icon">+</span>
+  </div>
 
      <div class="row">
       <label style="flex:1">Nature of Illness Disability<input id="ClmMed_Illness_Nature" class="persist" type="text" placeholder="Enter name">
@@ -679,7 +682,7 @@ label:has(.time-input-group)::first-line {
 </div>
 
   </div>
-  </section>
+  </div>
 
   <!-- SECTION 6: Particulars of Dr -->
   <section id="UserOption" class="section">

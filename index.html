@@ -686,9 +686,13 @@ label:has(.time-input-group)::first-line {
   </div>
 
   <!-- SECTION 6: Particulars of Dr -->
-  <section id="UserOption" class="section">
-  <h2>6. Particulars of Doctors Consulted</h2>
+  <div class="collapsible">
+  <div class="collapsible-header" onclick="toggleCollapse(this)">
+    6.   Particulars of Doctors Consulted
+    <span class="icon">+</span>
+  </div>
 
+  <div class="collapsible-content">
    
     <section class="section">
       <div class="row">
@@ -783,7 +787,10 @@ label:has(.time-input-group)::first-line {
       </label>
      </div>
     </section>
-  </section>
+
+  </div>
+  </div>
+
 
    <!-- SECTION 7: Other Coverage -->
 <section id="otherCoverageSection" class="section">

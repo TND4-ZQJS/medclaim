@@ -1010,30 +1010,41 @@ const CONTROLLER_BY_SECTION = {
 };
   
 /* ---------- Collpasible section UI ---------- */
+/* ---------- Collpasible section UI - FIXED HEIGHT CALCULATION ---------- */
 function toggleCollapse(header) {
   const content = header.nextElementSibling;
   const icon = header.querySelector(".icon");
 
   if (content.classList.contains("open")) {
-    // Closing the current section
+    // 1. Closing the current section
     content.classList.remove("open");
     content.style.maxHeight = null;
     icon.style.transform = "rotate(0deg)";
+    
+    // 2. Update parents AFTER the content height has collapsed
+    updateParentHeights(content); 
+
   } else {
-    // Opening the current section
+    // 1. Opening the current section
     content.classList.add("open");
-    // CRUCIAL: Set the max-height dynamically to content's full height
+
+    // Force CSS to apply the new padding (using a reflow trigger)
+    // This ensures scrollHeight includes the 16px top/bottom padding
+    content.offsetWidth; // Triggers reflow
+
+    // 2. CRUCIAL: Set the max-height dynamically to content's full height
     content.style.maxHeight = content.scrollHeight + "px";
     icon.style.transform = "rotate(45deg)";
+    
+    // 3. Update parents AFTER the content height has expanded
+    updateParentHeights(content); 
   }
-
-  // CRITICAL FIX: After opening/closing, update all parent collapsible heights
-  updateParentHeights(content);
 }
 
 /**
  * Helper function to travel up the DOM tree and re-calculate/reset 
  * the max-height of any open parent collapsible elements.
+ * * NOTE: The logic here is sound and does not need change.
  */
 function updateParentHeights(element) {
   let parentContent = element.parentElement;
@@ -1051,8 +1062,6 @@ function updateParentHeights(element) {
   }
 }
 
-// NOTE: You'll need to link this function to your header elements, 
-// e.g., using: <div class="collapsible-header" onclick="toggleCollapse(this)">
 
 
 /********************************************

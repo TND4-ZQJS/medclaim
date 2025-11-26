@@ -721,11 +721,13 @@ label:has(.time-input-group)::first-line {
     </div>
   </div>
 
-<section class="section">
-      <div class="row">
-      <label style="flex:1">All other doctors consulted for this illness/disability</label>
-      </div>
-      
+    <div class="collapsible">
+        <div class="collapsible-header" onclick="toggleCollapse(this)">
+    All other doctors consulted for this illness/disabilit
+    <span class="icon">+</span>
+  </div>
+
+    <div class="collapsible-content">
     <div class="row date-group" data-combine="true" data-field="ClmMed_Dr_Others_Date"> 
   <label class="date-label">First consultation date
     <span class="muted">(DD/MM/YYYY)</span>
@@ -742,7 +744,8 @@ label:has(.time-input-group)::first-line {
       </label>
      </div>
       
-    </section>
+    </div>
+    </div>
 
     <section class="section">
       <div class="row">

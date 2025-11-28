@@ -649,6 +649,18 @@ label:has(.time-input-group)::first-line {
     </section>
   </section>
 
+   <!-- SECTION 7: Other Coverage -->
+<section id="otherCoverageSection" class="section">
+  <h2>7. Particulars of Other Coverage/Scheme/Policy(ies)</h2>
+  <div class="container-grid" id="otherCoverageGrid">
+    <!-- Dynamic entries will be appended here -->
+  </div>
+  <div class="row">
+  <button type="button" id="addOtherCoverageBtn">+ Add Other Coverage</button>
+  <small class="muted">Up to 4 policies</small>
+  </div>
+</section>
+
     <!-- SECTION 8: E Banking -->
   <section id="UserOption" class="section">
   <h2>8. Particulars of Bank Account for Claim Payment</h2>
@@ -1136,6 +1148,90 @@ addBasicPolicyBtn.addEventListener("click", () => {
 
 // Initialize on page load
 restoreBasicPolicy();
+
+/* ---------- Other Coverage dynamic container (max 4) ---------- */
+const maxOtherCoverage = 4;
+const otherCoverageGrid = document.getElementById("otherCoverageGrid");
+const addBtn = document.getElementById("addOtherCoverageBtn");
+
+// Helper: save input to localStorage
+function saveOtherCoverage(id, value){
+  localStorage.setItem(id, value);
+}
+
+// Helper: restore value from localStorage
+function restoreValue(id){
+  return localStorage.getItem(id) || "";
+}
+
+// Create a new Other Coverage entry card
+function createOtherCoverageEntry(index){
+  const entry = document.createElement("div");
+  entry.className = "entry";
+  entry.dataset.index = index;
+
+  entry.innerHTML = `
+    <h3>Other Coverage #${index} 
+      <button type="button" class="remove-btn">Remove</button>
+    </h3>
+    <div class="row" style="flex:1">
+      <label style="flex:1" for="ClmMed_OtherCover_CompName${index}">Name of Company/Insurer/Scheme
+      <input type="text" id="ClmMed_OtherCover_CompName${index}" value="${restoreValue("ClmMed_OtherCover_CompName"+index)}"></label>
+    </div>
+    <div class="row" style="flex:1">
+      <label style="flex:1" for="ClmMed_OtherCover_PolicyNo${index}">Policy/Membership No.
+      <input type="text" id="ClmMed_OtherCover_PolicyNo${index}" value="${restoreValue("ClmMed_OtherCover_PolicyNo"+index)}"></label>
+    </div>
+    <div class="row" style="flex:1">
+      <label class="flex:1" for="ClmMed_OtherCover_Date${index}">Effective Date of Cover
+      <input type="text" id="ClmMed_OtherCover_Date${index}" value="${restoreValue("ClmMed_OtherCover_Date"+index)}"></label>
+      <label style="flex:1" for="ClmMed_OtherCover_FA${index}">Sum Assured
+      <input type="text" id="ClmMed_OtherCover_FA${index}" value="${restoreValue("ClmMed_OtherCover_FA"+index)}"></label>
+    </div>
+  `;
+
+  // Add input change listener to save in localStorage
+  entry.querySelectorAll("input").forEach(input => {
+    input.addEventListener("input", e => saveOtherCoverage(e.target.id, e.target.value));
+  });
+
+  // Remove button
+  entry.querySelector(".remove-btn").addEventListener("click", () => {
+    entry.remove();
+    updateAddBtnStatus();
+  });
+
+  otherCoverageGrid.appendChild(entry);
+  updateAddBtnStatus();
+}
+
+// Show/hide Add button based on current entries
+function updateAddBtnStatus(){
+  const currentCount = otherCoverageGrid.querySelectorAll(".entry").length;
+  addBtn.disabled = currentCount >= maxOtherCoverage;
+}
+
+// Initialize: restore saved entries
+function restoreOtherCoverage(){
+  for(let i=1; i<=maxOtherCoverage; i++){
+    if(localStorage.getItem("ClmMed_OtherCover_CompName"+i) ||
+       localStorage.getItem("ClmMed_OtherCover_PolicyNo"+i) ||
+       localStorage.getItem("ClmMed_OtherCover_Date"+i) ||
+       localStorage.getItem("ClmMed_OtherCover_FA"+i)){
+      createOtherCoverageEntry(i);
+    }
+  }
+}
+
+// Add button click
+addBtn.addEventListener("click", () => {
+  const currentCount = otherCoverageGrid.querySelectorAll(".entry").length;
+  createOtherCoverageEntry(currentCount + 1);
+});
+
+// Run on page load
+restoreOtherCoverage();
+
 
 
 /* ---------- UNIVERSAL AUTO-LINK PERSON HELPER---------- */

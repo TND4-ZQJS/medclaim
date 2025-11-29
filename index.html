@@ -437,6 +437,15 @@ label:has(.time-input-group)::first-line {
   <section class="section">
     <h2>5. Particulars of Illness/Accident</h2>
 
+    <!-- SECTION 5: Selection of Ilness or Accident-->
+    <section class="section">
+      <div class="row">
+       <label style="flex:1">This is due to:</label>
+       <label class="inline"><input id="optionIllness" class="persist" name="IncidentType" type="radio">Ilness Disability</label>
+        <label class="inline"><input id="optionAccident" class="persist" name="IncidentType" type="radio">Accident</label>
+      </div>
+    </section>
+    
      <div class="row">
       <label style="flex:1">Nature of Illness Disability<input id="ClmMed_Illness_Nature" class="persist" type="text" placeholder="Enter name">
       </label>

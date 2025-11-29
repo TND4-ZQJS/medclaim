@@ -863,6 +863,19 @@ document.getElementById("optionAccident").addEventListener("change", toggleIncid
 // Run once on page load (restore localStorage state)
 document.addEventListener("DOMContentLoaded", toggleIncidentSections);
 
+document.addEventListener("DOMContentLoaded", () => {
+  const saved = localStorage.getItem("IncidentType");
+
+  // If no saved data → clear both on first load
+  if (!saved) {
+    document.getElementById("optionIllness").checked = false;
+    document.getElementById("optionAccident").checked = false;
+  }
+
+  toggleIncidentSections(); // refresh UI
+});
+
+
   
 // ---------- SECTION CONTROL CONFIG (Show/Hide Section) ----------
 const CONTROLLER_BY_SECTION = {

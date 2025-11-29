@@ -443,11 +443,12 @@ label:has(.time-input-group)::first-line {
        <label style="flex:1">This is due to:</label>
       </div>
       <div class="row">
-       <label class="inline"><input id="optionIllness" class="persist" name="IncidentType" type="radio">Ilness Disability</label>
+       <label class="inline"><input id="optionIllness" class="persist" name="IncidentType" type="radio">Ilness</label>
         <label class="inline"><input id="optionAccident" class="persist" name="IncidentType" type="radio">Accident</label>
       </div>
     </section>
-    
+
+  <div id="illnesssection">
      <div class="row">
       <label style="flex:1">Nature of Illness Disability<input id="ClmMed_Illness_Nature" class="persist" type="text" placeholder="Enter name">
       </label>
@@ -480,13 +481,9 @@ label:has(.time-input-group)::first-line {
       <input id="UClmMed_Illness_Onset_Year" class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
       </div>
       </div>
+  </div>
 
-        <div class="row">
-        <label style="flex:1"><input id="CB_Accident" class="persist" type="checkbox">This is due to Accident
-        </label>
-        </div>
-
-        <div id="accidentsection">
+  <div id="accidentsection">
         <div class="row date-group"> 
         <label class="date-label">Date of accident
         <span class="muted">(DD/MM/YYYY)</span>
@@ -496,12 +493,12 @@ label:has(.time-input-group)::first-line {
     <input id="ClmMed_Accident_Day" class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
     <input id="ClmMed_Accident_Month" class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
     <input id="ClmMed_Accident_Year" class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
-  </div>
-</div>
+     </div>
+      </div>
 
     <div>
-<label>Time of accident
-  <div class="time-input-group" data-field="ClmMed_Accident_Time">
+    <label>Time of accident
+    <div class="time-input-group" data-field="ClmMed_Accident_Time">
     <input id="AppointmentTime_HH" class="persist time-input" placeholder="HH" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
     
     <span class="separator">:</span>
@@ -850,10 +847,9 @@ label:has(.time-input-group)::first-line {
 /* ---------- CONFIG ---------- */
 const PDF_FILENAME = "Medical and Accident Claim_Claimant's Statement_LF5191_202305_fillable.pdf";
 
-// ---------- SECTION CONTROL CONFIG ----------
+// ---------- SECTION CONTROL CONFIG (Show/Hide Section) ----------
 const CONTROLLER_BY_SECTION = {
   Policyownerinfo: "CB_PO",
-  accidentsection: "CB_Accident"
 };
 
 // ---------- UI ENABLE/DISABLE TOGGLE ----------

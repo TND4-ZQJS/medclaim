@@ -346,7 +346,7 @@ label:has(.time-input-group)::first-line {
       </label>
       <label style="flex:1"><input id="ClmMed_Claimtype_AccIndemnity" class="persist" type="checkbox">Accident Indemnity
       </label>
-      <label style="flex:1"><input id="ClmMed_Claimtype_Others" class="persist" type="checkbox">Others<input id="ClmMed_Claimtype_Others_Text" class="persist" type="text" placeholder="Please Specify">
+      <label style="flex:1"><input id="ClmMed_Claimtype_Others" class="persist" type="checkbox">Others<input id="ClmMed_Claimtype_Others_Text" class="persist" type="text" placeholder="Please Specify. Eg Vaccination">
       </label>
     </div>
     </section>
@@ -389,11 +389,11 @@ label:has(.time-input-group)::first-line {
       </label>
      </div>
        <div class="row">
-      <label style="flex:1">Exaxt Duties Performed<input id="ClmMed_Insuredinfo_Duties" class="persist" type="text" placeholder="Enter number">
+      <label style="flex:1">Exaxt Duties Performed<input id="ClmMed_Insuredinfo_Duties" class="persist" type="text" placeholder="Enter duties performed">
       </label>
      </div>
        <div class="row">
-      <label style="flex:1">Name of Current Employer<input id="ClmMed_Insuredinfo_Employer" class="persist" type="text" placeholder="Enter number">
+      <label style="flex:1">Name of Current Employer<input id="ClmMed_Insuredinfo_Employer" class="persist" type="text" placeholder="Enter name">
       </label>
      </div>
        <div class="row">
@@ -503,7 +503,7 @@ label:has(.time-input-group)::first-line {
     
     <span class="separator">:</span>
     
-    <input class="persist time-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input id="AppointmentTime_MM" class="persist time-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
     
     <select id="AppointmentTime_AMPM" class="persist">
       <option value="">--</option>
@@ -515,17 +515,17 @@ label:has(.time-input-group)::first-line {
       </div>
 
     <div class="row">
-      <label style="flex:1">Place of accident<input id="ClmMed_Accident_Place" class="persist" type="text" placeholder="Enter name">
+      <label style="flex:1">Place of accident<input id="ClmMed_Accident_Place" class="persist" type="text" placeholder="Enter place name">
       </label>
      </div>
 
     <div class="row">
-      <label style="flex:1">How did the accident happen?<textarea id="ClmMed_Accident_How" class="persist" placeholder="Enter address"></textarea>
+      <label style="flex:1">How did the accident happen?<textarea id="ClmMed_Accident_How" class="persist" placeholder="Describe the incident"></textarea>
       </label>
      </div>
 
     <div class="row">
-      <label style="flex:1">Nature and extend of injury<textarea id="ClmMed_Accident_Injury" class="persist" placeholder="Enter address"></textarea>
+      <label style="flex:1">Nature and extend of injury<textarea id="ClmMed_Accident_Injury" class="persist" placeholder="Describe/state the injury"></textarea>
       </label>
      </div>
 
@@ -572,14 +572,14 @@ label:has(.time-input-group)::first-line {
   </label>
     
       <div class="date-inputs">
-    <input class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
-    <input class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
-    <input class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Dr_First_Day" class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Dr_First_Month" class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Dr_First_Year" class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
   </div>
 </div>
 
           <div class="row">
-      <label style="flex:1">Name and Address of Doctor(s)<textarea id="ClmMed_Dr_First_NameAdd" class="persist" placeholder="Enter address"></textarea>
+      <label style="flex:1">Name and Address of Doctor(s)<textarea id="ClmMed_Dr_First_NameAdd" class="persist" placeholder="eg. Dr ABC, XYZ Medical Centre"></textarea>
       </label>
      </div>
       
@@ -596,13 +596,13 @@ label:has(.time-input-group)::first-line {
   </label>
     
       <div class="date-inputs">
-    <input class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
-    <input class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
-    <input class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Dr_Others_Day" class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Dr_Others_Month" class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Dr_Others_Year" class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
   </div>
     </div>
           <div class="row">
-      <label style="flex:1">Name and Address of Doctor(s)<textarea id="ClmMed_Dr_Others_NameAdd" class="persist" placeholder="Enter address"></textarea>
+      <label style="flex:1">Name and Address of Doctor(s)<textarea id="ClmMed_Dr_Others_NameAdd" class="persist" placeholder="eg. Dr ABC, XYZ Medical Centre"></textarea>
       </label>
      </div>
       
@@ -619,14 +619,14 @@ label:has(.time-input-group)::first-line {
   </label>
     
       <div class="date-inputs">
-    <input id="UpdateOccupation_Day" class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
-    <input id="UpdateOccupation_Month" class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
-    <input id="UpdateOccupation_Year" class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Dr_Regular_Day" class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Dr_Regular_Month" class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Dr_Regular_Year" class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
   </div>
 </div>
 
           <div class="row">
-      <label style="flex:1">Name and Address of Doctor(s)<textarea id="ClmMed_Dr_Regular_NameAdd" class="persist" placeholder="Enter address"></textarea>
+      <label style="flex:1">Name and Address of Doctor(s)<textarea id="ClmMed_Dr_Regular_NameAdd" class="persist" placeholder="eg. Dr ABC, XYZ Medical Centre"></textarea>
       </label>
      </div>
       
@@ -643,14 +643,14 @@ label:has(.time-input-group)::first-line {
   </label>
     
       <div class="date-inputs">
-    <input class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
-    <input class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
-    <input class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Dr_5yrs_Day" class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Dr_5yrs_Month" class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Dr_5yrs_Year" class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
   </div>
     </div>
 
           <div class="row">
-      <label style="flex:1">Name and Address of Doctor(s)<textarea id="ClmMed_Dr_5yrs_NameAdd" class="persist" placeholder="Enter address"></textarea>
+      <label style="flex:1">Name and Address of Doctor(s)<textarea id="ClmMed_Dr_5yrs_NameAdd" class="persist" placeholder="eg. Dr ABC, XYZ Medical Centre"></textarea>
       </label>
      </div>
     </section>
@@ -673,25 +673,44 @@ label:has(.time-input-group)::first-line {
   <h2>8. Particulars of Bank Account for Claim Payment</h2>
 
    <div class="row">
-      <label style="flex:1">Account Holder Name<input id="ClmMed_EBank_Name" class="persist" type="text" placeholder="Enter name">
+      <label style="flex:1">Account Holder Name<input id="ClmMed_EBank_Name" class="persist" type="text">
       </label>
      </div>
 
       <div class="row">
       <label style="flex:1">New IC/Old IC/Passport No/Co. Registration No.
-(as per bank’s records)<input id="ClmMed_EBank_NIRC" class="persist" type="text" placeholder="Enter name">
+(as per bank’s records)<input id="ClmMed_EBank_NIRC" class="persist" type="text">
       </label>
      </div>
 
       <div class="row">
-      <label style="flex:1">Bank Account No.<input id="ClmMed_EBank_AccNo" class="persist" type="text" placeholder="Enter name">
+      <label style="flex:1">Bank Account No.<input id="ClmMed_EBank_AccNo" class="persist" type="text" placeholder="Enter no.">
       </label>
      </div>
 
           <div class="row">
-      <label style="flex:1">Name of Bank<input id="ClmMed_EBank_Bank" class="persist" type="text" placeholder="Enter name">
-      </label>
-     </div>
+  <label style="flex:1">Name of Bank
+    <select id="ClmMed_EBank_Bank" class="persist">
+      <option value="">-- Select Bank --</option>
+      <option value="Maybank">Maybank</option>
+      <option value="CIMB Bank">CIMB Bank</option>
+      <option value="Public Bank">Public Bank</option>
+      <option value="RHB Bank">RHB Bank</option>
+      <option value="Hong Leong Bank">Hong Leong Bank</option>
+      <option value="AmBank">AmBank</option>
+      <option value="UOB Bank">UOB Bank</option>
+      <option value="OCBC Bank">OCBC Bank</option>
+      <option value="HSBC Bank">HSBC Bank</option>
+      <option value="Standard Chartered">Standard Chartered</option>
+      <option value="Alliance Bank">Alliance Bank</option>
+      <option value="Affin Bank">Affin Bank</option>
+      <option value="Citibank">Citibank</option>
+      <option value="Bank Rakyat">Bank Rakyat</option>
+      <option value="Bank Islam">Bank Islam</option>
+      <option value="Bank Muamalat">Bank Muamalat</option>
+    </select>
+  </label>
+</div>
 
     <section class="section">
     <div class="row">
@@ -726,18 +745,31 @@ label:has(.time-input-group)::first-line {
   </label>
     
       <div class="date-inputs">
-    <input class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
-    <input class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
-    <input class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Sign_PO_Day" class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Sign_PO_Month" class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Sign_PO_Year" class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
   </div>
 </div>
     
     <div class="row">
     <label style="flex:1">Relationship with Insured Person
-        <input id="ClmMed_Sign_Relationship" class="persist" type="text" placeholder="e.g. 900101-14-1234">
-    </label>
+    <select id="ClmMed_Sign_Relationship" class="persist">
+      <option value="">-- Select Relationship --</option>
+      <option value="Self">Self</option>
+      <option value="Spouse">Spouse</option>
+      <option value="Child">Child</option>
+      <option value="Parent">Parent</option>
+      <option value="Sibling">Sibling</option>
+      <option value="Employee">Employee</option>
+      <option value="Employer">Employer</option>
+      <option value="Legal Guardian">Legal Guardian</option>
+      <option value="Trustee">Trustee</option>
+      <option value="Assignee">Assignee</option>
+      <option value="Other">Other</option>
+    </select>
+  </label>
     <label style="flex:1">Mobile No.
-        <input id="ClmMed_Sign_Relationship_Mobile" class="persist" type="text" placeholder="e.g. 900101-14-1234">
+        <input id="ClmMed_Sign_Relationship_Mobile" class="persist" type="text" placeholder="e.g. 012-23456789">
     </label>
     </div>
 
@@ -772,9 +804,9 @@ label:has(.time-input-group)::first-line {
   </label>
     
       <div class="date-inputs">
-    <input class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
-    <input class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
-    <input class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Sign_Witness_Day" class="persist date-input" placeholder="DD" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Sign_Witness_Month" class="persist date-input" placeholder="MM" type="text" maxlength="2" inputmode="numeric" pattern="\d*">
+    <input id="ClmMed_Sign_Witness_Year" class="persist date-input" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric" pattern="\d*">
   </div>
 </div>
 
